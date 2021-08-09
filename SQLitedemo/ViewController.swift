@@ -11,6 +11,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  
     var db:DBHelper = DBHelper()
     var selectedParentID = 0
     var arrSelectedParentID : [Int] = []
@@ -88,12 +89,16 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         arrTravel = ["Home"]
         arrSelectedParentID = [0]
         readChoiceDB(parentID: 0)
+        
+        btnDelete.addTarget(self, action: #selector(multipleTap(_:event:)), for: .touchDownRepeat)
         // Do any additional setup after loading the view.
     }
     
@@ -112,6 +117,23 @@ class ViewController: UIViewController {
         choices = db.read(parentID: parentID)
     }
     
+    @objc fileprivate func multipleTap(_ sender: UIButton, event: UIEvent) {
+        
+        if arrSelectedChoices.count == 0 {
+            return
+        }
+        let touch: UITouch = event.allTouches!.first!
+        
+        
+        if (touch.tapCount == 1) {
+            
+            arrSelectedChoices.removeLast()
+            // do action.
+        } else {
+            
+            arrSelectedChoices.removeAll()
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -139,6 +161,15 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
+    
+    
+    @IBAction func btnDeletePressed(_ sender: Any) {
+        
+        if arrSelectedChoices.count > 0 {
+            
+            arrSelectedChoices.removeLast()
+        }
+    }
     
     @IBAction func btnHomePressed(_ sender: Any) {
         arrTravel = ["Home"]
@@ -278,6 +309,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
         
     }
 }
+
 
 
 ///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPbap63zyb9CB1njdwK-------

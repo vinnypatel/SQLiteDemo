@@ -33,6 +33,12 @@ class SelectedChoiceCell: UICollectionViewCell {
 }
 
 /*
+ 
+ if let parentVC = self.parentContainerViewController() as? ProductsDetailsViewController{
+     parentVC.productDetailsViewModel.productQuantity = num
+ }
+ 
+ 
  extension QuantityHolderTableCell : UITextFieldDelegate {
      func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
          let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string) as String

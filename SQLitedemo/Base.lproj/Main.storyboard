@@ -632,6 +632,10 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="plo-wP-R58" customClass="RoundableView" customModule="SQLitedemo" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="84" width="598.5" height="52"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zkt-NG-0dV" customClass="WaveformLiveView" customModule="SQLitedemo" customModuleProvider="target">
+                                                        <rect key="frame" x="87.5" y="8" width="375" height="36"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speak As" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj6-8X-nW9">
                                                         <rect key="frame" x="8" y="16" width="71.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -654,6 +658,9 @@
                                                         </constraints>
                                                         <color key="tintColor" systemColor="systemRedColor"/>
                                                         <state key="normal" image="stop-button"/>
+                                                        <connections>
+                                                            <action selector="btnRecording:" destination="tSh-mS-T7S" eventType="touchUpInside" id="IES-jE-iJh"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHq-nK-Hgb">
                                                         <rect key="frame" x="470.5" y="10" width="32" height="32"/>
@@ -662,17 +669,24 @@
                                                             <constraint firstAttribute="width" constant="32" id="mgz-iz-B54"/>
                                                         </constraints>
                                                         <state key="normal" image="play-button"/>
+                                                        <connections>
+                                                            <action selector="btnPlayRecoding:" destination="tSh-mS-T7S" eventType="touchUpInside" id="0fn-67-p24"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="UHq-nK-Hgb" firstAttribute="leading" secondItem="Zkt-NG-0dV" secondAttribute="trailing" constant="8" id="Da9-Cb-6qV"/>
                                                     <constraint firstItem="ru4-Sd-rGT" firstAttribute="leading" secondItem="UHq-nK-Hgb" secondAttribute="trailing" constant="12" id="Nhr-gE-p2Q"/>
                                                     <constraint firstAttribute="trailing" secondItem="pkl-aT-h9W" secondAttribute="trailing" constant="8" id="P7B-Xd-3EV"/>
                                                     <constraint firstItem="Nj6-8X-nW9" firstAttribute="centerY" secondItem="plo-wP-R58" secondAttribute="centerY" id="R9v-HQ-Vqo"/>
+                                                    <constraint firstItem="Zkt-NG-0dV" firstAttribute="top" secondItem="plo-wP-R58" secondAttribute="top" constant="8" id="STU-ak-tmH"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Zkt-NG-0dV" secondAttribute="bottom" constant="8" id="Xwf-TS-XVJ"/>
                                                     <constraint firstItem="pkl-aT-h9W" firstAttribute="centerY" secondItem="plo-wP-R58" secondAttribute="centerY" id="Zyk-gk-FSa"/>
                                                     <constraint firstItem="UHq-nK-Hgb" firstAttribute="centerY" secondItem="plo-wP-R58" secondAttribute="centerY" id="akP-ZK-uxU"/>
                                                     <constraint firstItem="pkl-aT-h9W" firstAttribute="leading" secondItem="ru4-Sd-rGT" secondAttribute="trailing" constant="12" id="ciw-Eg-qJK"/>
                                                     <constraint firstItem="ru4-Sd-rGT" firstAttribute="centerY" secondItem="plo-wP-R58" secondAttribute="centerY" id="cjl-jj-0at"/>
+                                                    <constraint firstItem="Zkt-NG-0dV" firstAttribute="leading" secondItem="Nj6-8X-nW9" secondAttribute="trailing" constant="8" id="fsA-wm-rsR"/>
                                                     <constraint firstAttribute="height" constant="52" id="nHZ-wL-0r2"/>
                                                     <constraint firstItem="Nj6-8X-nW9" firstAttribute="leading" secondItem="plo-wP-R58" secondAttribute="leading" constant="8" id="zyE-rQ-kDR"/>
                                                 </constraints>
@@ -1138,6 +1152,9 @@
                     </view>
                     <connections>
                         <outlet property="btnAddMoreWords" destination="Vba-tW-tQt" id="UaP-gb-lvT"/>
+                        <outlet property="btnDeleteRecord" destination="pkl-aT-h9W" id="wYa-rm-enF"/>
+                        <outlet property="btnPlay" destination="UHq-nK-Hgb" id="y4X-59-0bF"/>
+                        <outlet property="btnRecord" destination="ru4-Sd-rGT" id="FpU-01-bsN"/>
                         <outlet property="imgVw" destination="vTG-A8-L1b" id="jeo-YY-6Pl"/>
                         <outlet property="lblCaption" destination="AZh-gy-gF1" id="quv-MH-T2C"/>
                         <outlet property="tfCaption" destination="8Z3-uN-9M1" id="keu-Hr-Nld"/>
@@ -1145,6 +1162,7 @@
                         <outlet property="tfWorkType" destination="bV8-aT-SyV" id="9gm-NV-rr9"/>
                         <outlet property="vwBgImg" destination="64S-NW-uC8" id="1wA-jy-t23"/>
                         <outlet property="vwImageBg" destination="fo6-hG-ilr" id="jh7-Xq-wFv"/>
+                        <outlet property="waveformView" destination="Zkt-NG-0dV" id="TYX-nd-Bac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajK-41-IyN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

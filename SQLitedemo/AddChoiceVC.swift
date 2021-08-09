@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class AddChoiceVC: UIViewController {
 
@@ -18,6 +19,24 @@ class AddChoiceVC: UIViewController {
     @IBOutlet weak var tfWorkType: UITextField!
     @IBOutlet weak var btnAddMoreWords : UIButton!
     @IBOutlet weak var lblCaption: UILabel!
+    
+    private let audioManager: SCAudioManager!
+    private let imageDrawer: WaveformImageDrawer!
+    @IBOutlet weak var waveformView: WaveformLiveView!
+    
+    
+    @IBOutlet weak var btnPlay: UIButton!
+    @IBOutlet weak var btnRecord: UIButton!
+    @IBOutlet weak var btnDeleteRecord: UIButton!
+    var audioURL : URL?
+    required init?(coder: NSCoder) {
+        audioManager = SCAudioManager()
+        
+        imageDrawer = WaveformImageDrawer()
+        super.init(coder: coder)
+
+        audioManager.recordingDelegate = self
+    }
     
     var callBack : (()->())?
     var selectedParentID : Int = 0
@@ -66,6 +85,14 @@ class AddChoiceVC: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        waveformView.configuration = waveformView.configuration.with(
+            style: .striped(.init(color: .red, width: 3, spacing: 3))
+        )
+        audioManager.prepareAudioRecording()
+    }
     
     @objc func textFieldDidChange(textField:UITextField)
     {
@@ -91,6 +118,45 @@ class AddChoiceVC: UIViewController {
 
 extension AddChoiceVC {
     
+    
+    @IBAction func btnPlayRecoding(_ sender: Any) {
+        
+        var avPlayer = AVAudioPlayer()
+        
+        
+        do {
+            
+            let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+            let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+            let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+            if let dirPath = paths.first{
+                let audioURL1 = URL(fileURLWithPath: dirPath).appendingPathComponent("recordings/\(audioURL!.lastPathComponent)")
+                avPlayer =  try AVAudioPlayer(contentsOf: audioURL1)
+                avPlayer.prepareToPlay()
+               
+            }
+            
+//            if let fileURL = Bundle.main.path(forResource: "openmenu", ofType: "wav") {
+//                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: fileURL))
+//            } else {
+//                print("No file with specified name exists")
+//            }
+        } catch let error {
+            print("Can't play the audio file failed with an error \(error.localizedDescription)")
+        }
+        
+    }
+    @IBAction func btnRecording(_ sender: Any) {
+        if audioManager.recording() {
+            audioManager.stopRecording()
+            btnRecord.tintColor = .red//setTitle("Start Recording", for: .normal)
+        } else {
+            waveformView.reset()
+            audioManager.startRecording()
+            btnRecord.tintColor = .black//setTitle("Stop Recording", for: .normal)
+        }
+    }
+    
     @IBAction func btnClearImagePressed(_ sender: Any) {
         
         imgVw.image = nil
@@ -99,10 +165,7 @@ extension AddChoiceVC {
             vwBgImg.tintColor = .lightGray
             return
         }
-        
         vwImageBg.backgroundColor = .lightGray
-        
-       
     }
     
     @IBAction func btnCameraPressed(_ sender : UIButton) {
@@ -225,12 +288,37 @@ extension AddChoiceVC {
             break
         default:
             break
-            
         }
-        
         vwbgColor = clr
     }
    
     
 }
 
+extension AddChoiceVC: RecordingDelegate {
+
+    func audioManager(_ manager: SCAudioManager!, didAllowRecording success: Bool) {
+        if !success {
+            preconditionFailure("Recording must be allowed in Settings to work.")
+        }
+    }
+
+    func audioManager(_ manager: SCAudioManager!, didFinishRecordingSuccessfully success: Bool, recodingURL url: URL!) {
+        print("did finish recording with success=\(success)")
+        
+        print(" recodeing URL \(url)")
+        audioURL = url
+        btnRecord.tintColor = .red//setTitle("Start Recording", for: .normal)
+        
+       // APPDELEGATE.saveImageToDocumentDirectory(image: <#T##UIImage#>, fileName: <#T##String#>)
+    }
+
+    func audioManager(_ manager: SCAudioManager!, didUpdateRecordProgress progress: CGFloat) {
+        print("current power: \(manager.lastAveragePower()) dB")
+        let linear = 1 - pow(10, manager.lastAveragePower() / 20)
+
+        // Here we add the same sample 3 times to speed up the animation.
+        // Usually you'd just add the sample once.
+        waveformView.add(samples: [linear, linear, linear])
+    }
+}
