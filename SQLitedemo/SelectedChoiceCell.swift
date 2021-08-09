@@ -25,6 +25,8 @@ class SelectedChoiceCell: UICollectionViewCell {
                 imgChoice.isHidden = true
             } else {
                 imgChoice.isHidden = false
+                let img = APPDELEGATE.loadImageFromDocumentDirectory(nameOfImage: model.strImageName)
+                imgChoice.image = img
             }
             
         }

@@ -112,7 +112,7 @@ class ViewController: UIViewController {
         let arrCaption = arrSelectedChoices.map({$0.strCaption})
         let utterance = AVSpeechUtterance(string: arrCaption.joined())
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        utterance.rate = 0.1
+        utterance.rate = 0.5
 
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
