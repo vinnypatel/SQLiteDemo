@@ -89,8 +89,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -100,6 +98,24 @@ class ViewController: UIViewController {
         
         btnDelete.addTarget(self, action: #selector(multipleTap(_:event:)), for: .touchDownRepeat)
         // Do any additional setup after loading the view.
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnChoicesWords))
+        clVwSelectedChoices.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func tapOnChoicesWords() {
+        
+        if arrSelectedChoices.count == 0 {
+            return
+        }
+        
+        let arrCaption = arrSelectedChoices.map({$0.strCaption})
+        let utterance = AVSpeechUtterance(string: arrCaption.joined())
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.rate = 0.1
+
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
     
     @IBOutlet weak var lblTravelPath: UILabel!
@@ -309,7 +325,5 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
         
     }
 }
-
-
 
 ///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPbap63zyb9CB1njdwK-------
