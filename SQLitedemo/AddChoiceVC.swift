@@ -29,6 +29,9 @@ class AddChoiceVC: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnDeleteRecord: UIButton!
     var audioURL : URL?
+
+    var strSelectedTable: String?
+    
     required init?(coder: NSCoder) {
         audioManager = SCAudioManager()
         
@@ -189,9 +192,7 @@ extension AddChoiceVC {
             imagePath =  APPDELEGATE.saveImageToDocumentDirectory(image: image, fileName: "\(Date().timeIntervalSince1970).png")
         }
         
-      
-        
-        if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory) {
+        if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory, tableName: strSelectedTable!) {
             
             self.callBack?()
         }

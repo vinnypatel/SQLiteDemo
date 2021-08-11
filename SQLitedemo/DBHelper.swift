@@ -1,5 +1,7 @@
 
 
+
+//80491442
 import Foundation
 import SQLite3
 
@@ -8,7 +10,9 @@ class DBHelper
     init()
     {
         db = openDatabase()
-        createTable()
+        createTable(withName: "TABLE_CHOICE")
+        createTable(withName: "TABLE_CORE_CHOICE")
+       // createTableCore()
     }
 
     let dbPath: String = "myDb.sqlite"
@@ -30,14 +34,9 @@ class DBHelper
             return db
         }
     }
-    
-    
-    
-    
-    
-    
-    func createTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS TABLE_CHOICE(id INTEGER PRIMARY KEY,parentId INTEGER,caption TEXT, showInMessageBox INT, imgPath TEXT, recordingPath TEXT, wordType CHAR(10), color CHAR(10), moreWords TEXT, isCategory INT);"
+
+    func createTable(withName name:String) {
+        let createTableString = "CREATE TABLE IF NOT EXISTS \(name)(id INTEGER PRIMARY KEY,parentId INTEGER,caption TEXT, showInMessageBox INT, imgPath TEXT, recordingPath TEXT, wordType CHAR(10), color CHAR(10), moreWords TEXT, isCategory INT);"
         var createTableStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK
         {
@@ -52,11 +51,8 @@ class DBHelper
         }
         sqlite3_finalize(createTableStatement)
     }
-    
-    
-    
-    
-    func insert(id : Int, parentId : Int, caption : String, showInMessageBox : Bool, imgPath: String, recordingPath: String, wordType: String, color: String, moreWords: String, isCategory: Bool) -> Bool
+
+    func insert(id : Int, parentId : Int, caption : String, showInMessageBox : Bool, imgPath: String, recordingPath: String, wordType: String, color: String, moreWords: String, isCategory: Bool, tableName: String) -> Bool
     {
         var isSuccess = false
         let choices = read()
@@ -68,7 +64,7 @@ class DBHelper
             }
         }
 
-        let insertStatementString = "INSERT INTO TABLE_CHOICE(id, parentId, caption, showInMessageBox, imgPath, recordingPath, wordType, color, moreWords, isCategory) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        let insertStatementString = "INSERT INTO \(tableName)(id, parentId, caption, showInMessageBox, imgPath, recordingPath, wordType, color, moreWords, isCategory) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
             
@@ -87,7 +83,6 @@ class DBHelper
                 isSuccess = true
             } else {
                 print("Could not insert row.")
-                
             }
         } else {
             print("INSERT statement could not be prepared.")
@@ -97,8 +92,48 @@ class DBHelper
         return isSuccess
     }
     
-    func read(parentID:Int) -> [Choices] {
-        let queryStatementString = "SELECT * FROM TABLE_CHOICE WHERE parentId == \(parentID);"
+//    func insertIntoCore(id : Int, parentId : Int, caption : String, showInMessageBox : Bool, imgPath: String, recordingPath: String, wordType: String, color: String, moreWords: String, isCategory: Bool) -> Bool
+//    {
+//        var isSuccess = false
+//        let choices = read()
+//        for p in choices
+//        {
+//            if p.id == id
+//            {
+//                return isSuccess
+//            }
+//        }
+//
+//        let insertStatementString = "INSERT INTO TABLE_CHOICE(id, parentId, caption, showInMessageBox, imgPath, recordingPath, wordType, color, moreWords, isCategory) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+//        var insertStatement: OpaquePointer? = nil
+//        if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+//
+//            sqlite3_bind_int(insertStatement, 1, Int32(parentId))
+//            sqlite3_bind_text(insertStatement, 2, (caption as NSString).utf8String, -1, nil)
+//            sqlite3_bind_int(insertStatement, 3, Int32(showInMessageBox ? 1 : 0))
+//            sqlite3_bind_text(insertStatement, 4, (imgPath as NSString).utf8String, -1, nil)
+//            sqlite3_bind_text(insertStatement, 5, (recordingPath as NSString).utf8String, -1, nil)
+//            sqlite3_bind_text(insertStatement, 6, (wordType as NSString).utf8String, -1, nil)
+//            sqlite3_bind_text(insertStatement, 7, (color as NSString).utf8String, -1, nil)
+//            sqlite3_bind_text(insertStatement, 8, (moreWords as NSString).utf8String, -1, nil)
+//            sqlite3_bind_int(insertStatement, 9, Int32(isCategory ? 1 : 0))
+//
+//            if sqlite3_step(insertStatement) == SQLITE_DONE {
+//                print("Successfully inserted row.")
+//                isSuccess = true
+//            } else {
+//                print("Could not insert row.")
+//            }
+//        } else {
+//            print("INSERT statement could not be prepared.")
+//        }
+//        sqlite3_finalize(insertStatement)
+//
+//        return isSuccess
+//    }
+    
+    func read(parentID:Int, withTableName name: String) -> [Choices] {
+        let queryStatementString = "SELECT * FROM \(name) WHERE parentId == \(parentID);"
         var queryStatement: OpaquePointer? = nil
         var psns : [Choices] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
@@ -136,7 +171,9 @@ class DBHelper
                     wt = .Others
                     break
                     
-                default: break
+                default:
+                    wt = .Noun
+                        break
                     
                 }
 
@@ -191,7 +228,9 @@ class DBHelper
                     wt = .Others
                     break
                     
-                default: break
+                default:
+                    wt = .Noun
+                    break
                     
                 }
 

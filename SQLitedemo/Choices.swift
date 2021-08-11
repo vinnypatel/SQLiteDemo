@@ -21,6 +21,7 @@ class Choices
     var color: String = ""
     var moreWords: String = ""
     var isCategory: Bool = false
+    var isSelected: Bool = false
     
     init(id : Int, parentId : Int, caption : String, showInMessageBox : Bool, imgPath: String, recordingPath: String, wordType: WordType, color: String, moreWords: String, isCategory: Bool) {
         self.id = id

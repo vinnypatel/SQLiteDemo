@@ -204,6 +204,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="84" height="78"/>
                                                         <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                                         <state key="normal" image="speaking"/>
+                                                        <connections>
+                                                            <action selector="btnCorePressed:" destination="CEp-Ns-3iL" eventType="touchUpInside" id="6lA-fd-QHH"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Core" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bk6-fY-PbE">
                                                         <rect key="frame" x="0.0" y="78" width="84" height="20.5"/>
@@ -282,7 +285,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="haW-tx-5up">
                                 <rect key="frame" x="8" y="164" width="908" height="596"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g3c-3D-jZo">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="g3c-3D-jZo">
                                     <size key="itemSize" width="184" height="140"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -380,6 +383,14 @@
                                             <outlet property="vw" destination="qIN-a9-tfF" id="KXs-fW-GPn"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zDX-bB-SeR">
+                                        <rect key="frame" x="0.0" y="152" width="184" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="69j-eE-9C8">
+                                            <rect key="frame" x="0.0" y="0.0" width="184" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="CEp-Ns-3iL" id="nSj-jL-p6J"/>
@@ -416,6 +427,7 @@
                         <outlet property="btnBack" destination="EaV-AS-0J8" id="U4i-mS-o97"/>
                         <outlet property="btnCore" destination="yOv-LN-x7F" id="ACT-FP-X3S"/>
                         <outlet property="btnDelete" destination="KeH-jE-Zft" id="eFa-iV-a5S"/>
+                        <outlet property="btnEdit" destination="UH0-9f-1C2" id="BcU-iG-MWi"/>
                         <outlet property="btnHome" destination="k8x-cr-b9F" id="cWQ-Fq-FMX"/>
                         <outlet property="btnKeyboard" destination="B4A-aC-zBV" id="DxD-m1-CeW"/>
                         <outlet property="btnMistake" destination="0Pz-4u-oER" id="9si-fD-hut"/>

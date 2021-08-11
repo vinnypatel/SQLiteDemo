@@ -222,7 +222,7 @@ static NSString const *kSCRecordingsFolderName = @"recordings";
 }
 
 - (NSURL *)copyTemporaryAudioFileToPersistentLocation:(NSURL *)audioURL {
-    self.currentRecordedAudioFilename = [NSString stringWithFormat:@"%@.m4a", [[NSUUID UUID] UUIDString]];
+    self.currentRecordedAudioFilename = [NSString stringWithFormat:@"%@_%f.m4a", [[NSUUID UUID] UUIDString], NSDate.timeIntervalSinceReferenceDate];
     NSData *recordedAudioData = [NSData dataWithContentsOfURL:audioURL];
 
     [[NSFileManager defaultManager] createDirectoryAtPath:[[self recordingsFolderURL] path] withIntermediateDirectories:YES attributes:nil error:nil];

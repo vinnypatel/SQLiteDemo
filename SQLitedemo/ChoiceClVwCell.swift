@@ -33,18 +33,25 @@ class ChoiceClVwCell: UICollectionViewCell {
                 vWimgContainer.isHidden = true
             }
             
+            var alpha : CGFloat = 1.0
+            if model.isSelected {
+                alpha = 0.5
+            }
+            
             if model.isCategory {
                 bgImgVw.isHidden = false
                 vWimgContainer.isHidden = false
                 bgImgVw.image = #imageLiteral(resourceName: "folder")
-                bgImgVw.tintColor = UIColor(model.color)//.withAlphaComponent(0.5)
+                bgImgVw.tintColor = UIColor(model.color).withAlphaComponent(alpha)//.withAlphaComponent(0.5)
                // bgImgVw.tintColor = .darkGray
                 vw.backgroundColor = .clear
             } else {
                 bgImgVw.isHidden = true
                 //vWimgContainer.isHidden = true
-                vw.backgroundColor = UIColor(model.color)//.withAlphaComponent(0.5)
+                vw.backgroundColor = UIColor(model.color).withAlphaComponent(alpha)//.withAlphaComponent(0.5)
             }
+            
+            
         }
 
     }

@@ -5,13 +5,12 @@
 //  Created by Vinay Patel on 31/07/21.
 //
 
-///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPbap63zyb9CB1njdwK-------
+///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPPbap63zyb9CB1njdwK-------
 
 import UIKit
 
 class ViewController: UIViewController {
 
-  
     var db:DBHelper = DBHelper()
     var selectedParentID = 0
     var arrSelectedParentID : [Int] = []
@@ -21,18 +20,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var btnCore: UIButton!
+    @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnMistake: UIButton!
     @IBOutlet weak var btnAler:UIButton!
+    var strSelectedTable : String = "TABLE_CHOICE"
+    
     var arrSelectedChoices: [selectedChoiceWords] = [] {
         
         didSet {
             clVwSelectedChoices.reloadData()
+            clVwSelectedChoices.scrollToItem(at: IndexPath(row: arrSelectedChoices.count - 1, section: 0), at: .left, animated: true)
         }
         
     }
     @IBOutlet weak var clVwSelectedChoices: UICollectionView!
     
     var isEnabled: Bool = true {
+        
         didSet {
             
             btnDelete.isEnabled = isEnabled
@@ -70,18 +74,22 @@ class ViewController: UIViewController {
                 strPath = arrTravel[0]
                 btnHome.isEnabled = false
                 btnBack.isEnabled = false
+                btnCore.isEnabled = true
             } else {
                 btnHome.isEnabled = true
                 btnBack.isEnabled = true
+                btnCore.isEnabled = false
                 strPath = ""
                 for i in 0..<arrTravel.count {
                     
                     if i == arrTravel.count - 1 {
                         
                         strPath = strPath + " " + arrTravel[i]
+                        strPath = strPath.trimmingCharacters(in: .whitespacesAndNewlines)
                     }  else  {
                         
                         strPath = strPath + " " + arrTravel[i] + "->"
+                        strPath = strPath.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
                 }
             }
@@ -94,7 +102,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         arrTravel = ["Home"]
         arrSelectedParentID = [0]
-        readChoiceDB(parentID: 0)
+        readChoiceDB(parentID: 0, withTableName: strSelectedTable)
         
         btnDelete.addTarget(self, action: #selector(multipleTap(_:event:)), for: .touchDownRepeat)
         // Do any additional setup after loading the view.
@@ -128,9 +136,9 @@ class ViewController: UIViewController {
         
     }
     
-    fileprivate func readChoiceDB(parentID: Int) {
+    fileprivate func readChoiceDB(parentID: Int, withTableName name: String) {
         
-        choices = db.read(parentID: parentID)
+        choices = db.read(parentID: parentID, withTableName: name)
     }
     
     @objc fileprivate func multipleTap(_ sender: UIButton, event: UIEvent) {
@@ -167,22 +175,49 @@ class ViewController: UIViewController {
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .fullScreen
         vc.selectedParentID = selectedParentID
+        vc.strSelectedTable = strSelectedTable
         vc.callBack = { [weak self] in
-            self!.readChoiceDB(parentID: self!.selectedParentID)
+            self!.readChoiceDB(parentID: self!.selectedParentID, withTableName: self!.strSelectedTable)
         }
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    fileprivate func saveMultipleChoices(arrChoices: [String]) {
+        
+        let myGroup = DispatchGroup()
+        
+        arrChoices.forEach { [weak self] strCaption in
+            myGroup.enter()
+            debugPrint(strCaption)
+            if db.insert(id: 0, parentId: self!.selectedParentID, caption: strCaption.trimmingCharacters(in: .whitespacesAndNewlines), showInMessageBox: false, imgPath: "", recordingPath: "", wordType: WordType.Noun.rawValue, color: "#808080", moreWords: "", isCategory: false, tableName: self!.strSelectedTable) {
+                myGroup.leave()
+            }
+        }
+        
+        myGroup.notify(queue: .main) { [weak self] in
+            debugPrint("All Added.....")
+            self!.readChoiceDB(parentID: self!.selectedParentID, withTableName: self!.strSelectedTable)
+        }
 
     }
-
 }
 
 extension ViewController {
     
-    
+    @IBAction func btnCorePressed(_ sender: UIButton) {
+
+            arrTravel = ["Home"]
+            arrSelectedParentID = [0]
+            arrTravel.append("Core")
+            arrSelectedParentID.append(0)
+            selectedParentID = 0
+            strSelectedTable = "TABLE_CORE_CHOICE"
+            readChoiceDB(parentID: 0, withTableName: strSelectedTable)
+
+    }
     @IBAction func btnDeletePressed(_ sender: Any) {
         
         if arrSelectedChoices.count > 0 {
-            
             arrSelectedChoices.removeLast()
         }
     }
@@ -190,22 +225,28 @@ extension ViewController {
     @IBAction func btnHomePressed(_ sender: Any) {
         arrTravel = ["Home"]
         arrSelectedParentID = [0]
-        readChoiceDB(parentID: 0)
+        strSelectedTable = "TABLE_CHOICE"
+        selectedParentID = 0
+        readChoiceDB(parentID: selectedParentID, withTableName: strSelectedTable)
     }
     
     @IBAction func btnBackPressed(_ sender: Any) {
         arrTravel.removeLast()
         arrSelectedParentID.removeLast()
-        readChoiceDB(parentID: arrSelectedParentID[arrSelectedParentID.last!])
+        if arrTravel.count == 1 {
+            strSelectedTable = "TABLE_CHOICE"
+        }
+        readChoiceDB(parentID: arrSelectedParentID[arrSelectedParentID.last!], withTableName: strSelectedTable)
         
     }
     
     @IBAction func btnEditPressed(_ sender: UIButton) {
         
-        sender.isSelected.toggle()
-        sender.tintColor = sender.isSelected ? .orange : .blue
+        btnEdit.isSelected.toggle()
+        btnEdit.tintColor = sender.isSelected ? .orange : .blue
         isEnabled.toggle()
-        if sender.isSelected {
+        
+        if btnEdit.isSelected {
             
             btnKeyboard.setImage(#imageLiteral(resourceName: "ic_add"), for: .normal)
             lblKeyboard.text = "Add"
@@ -226,7 +267,24 @@ extension ViewController {
             
             alertView.addAction(UIAlertAction(title: "Add Many items togethor", style: .default, handler: { [weak self] alert in
                 
-                //self!.openChoiceVC(isCategory: false)
+                let alertController = UIAlertController(title: "Add Many choice words", message: "Enter words to add, separated by commas.", preferredStyle: .alert)
+
+                   let saveAction = UIAlertAction(title: "ADD", style: .default, handler: { alert -> Void in
+                       let firstTextField = alertController.textFields![0] as UITextField
+                    print(firstTextField.text!)
+                    self!.saveMultipleChoices(arrChoices: firstTextField.text!.components(separatedBy: ","))
+                   })
+                   let cancelAction = UIAlertAction(title: "CANCEL", style: .default, handler: {
+                       (action : UIAlertAction!) -> Void in })
+                   alertController.addTextField { (textField : UITextField!) -> Void in
+                       textField.placeholder = "Breakfast, Launch, Dinner"
+                   }
+
+                   alertController.addAction(saveAction)
+                   alertController.addAction(cancelAction)
+
+                   self!.present(alertController, animated: true, completion: nil)
+                
             }))
             alertView.addAction(UIAlertAction(title: "Add New Choice", style: .default, handler: { [weak self] alert in
                 self!.openChoiceVC(isCategory: false)
@@ -310,20 +368,31 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
         if collectionView == clVwSelectedChoices {
             return
         }
+        
+        if btnEdit.isSelected {
+            
+            choices[indexPath.row].isSelected.toggle()
+            clVwChoices.reloadItems(at: [IndexPath.init(item: indexPath.row, section: 0)])
+            return
+        }
+        
+        
+       
         let model = choices[indexPath.row]
         
         if model.isCategory {
             arrTravel.append(model.caption)
             arrSelectedParentID.append(model.id)
             selectedParentID = model.id
-            self.readChoiceDB(parentID: model.id)
+            self.readChoiceDB(parentID: model.id, withTableName: strSelectedTable)
             
         } else {
             
             arrSelectedChoices.append(selectedChoiceWords(strCaption: model.caption, strImageName: model.imgPath!))
+           
         }
         
     }
 }
 
-///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPbap63zyb9CB1njdwK-------
+///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPPbap63zyb9CB1njdwK-------
