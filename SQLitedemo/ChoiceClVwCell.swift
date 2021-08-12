@@ -25,6 +25,7 @@ class ChoiceClVwCell: UICollectionViewCell {
             
             lblChoiceName.text = model.caption
             if !model.imgPath!.isEmpty {
+                
                 vWimgContainer.isHidden = false
                 let img = APPDELEGATE.loadImageFromDocumentDirectory(nameOfImage: model.imgPath!)
                 imgVwChoice.image = img//UIImage(contentsOfFile: model.imgPath!)

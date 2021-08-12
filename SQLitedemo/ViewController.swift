@@ -18,11 +18,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnKeyboard: UIButton!
     @IBOutlet weak var btnDelete : UIButton!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var lblDelete : UILabel!
+    @IBOutlet weak var lblBack: UILabel!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var btnCore: UIButton!
     @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnMistake: UIButton!
     @IBOutlet weak var btnAler:UIButton!
+
+    private let audioManager: SCAudioManager!
+    
+    required init?(coder: NSCoder) {
+        audioManager = SCAudioManager()
+        
+        
+        super.init(coder: coder)
+
+    }
+    
     var strSelectedTable : String = "TABLE_CHOICE"
     
     var arrSelectedChoices: [selectedChoiceWords] = [] {
@@ -143,6 +156,9 @@ class ViewController: UIViewController {
     
     @objc fileprivate func multipleTap(_ sender: UIButton, event: UIEvent) {
         
+        if btnDelete.tag != 0 {
+            return
+        }
         if arrSelectedChoices.count == 0 {
             return
         }
@@ -231,6 +247,45 @@ extension ViewController {
     }
     
     @IBAction func btnBackPressed(_ sender: Any) {
+        
+        if btnBack.tag == 1 {
+            
+            let myGroup = DispatchGroup()
+            let arrSelected = choices.filter({$0.isSelected})
+            
+            arrSelected.forEach { choice in
+                myGroup.enter()
+                let arrChoiceWithParentID = choices.filter({$0.parentId == choice.id})
+                
+                if arrChoiceWithParentID.count > 0 {
+                    myGroup.enter()
+                    arrChoiceWithParentID.forEach { id in
+                        db.deleteByID(id: id.id, fromTable: strSelectedTable)
+                        myGroup.leave()
+                    }
+                }
+                
+                db.deleteByID(id: choice.id, fromTable: strSelectedTable)
+                myGroup.leave()
+            }
+            
+            myGroup.notify(queue: .main) { [weak self] in
+                
+                self!.readChoiceDB(parentID: self!.selectedParentID, withTableName: self!.strSelectedTable)
+            }
+            
+            btnBack.isEnabled = false
+            btnBack.alpha = 0.5
+//                btnDelete.tag = 0
+//                btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+            btnBack.tag = 0
+            btnBack.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
+//                lblDelete.text = "Delete"
+            lblBack.text = "Back"
+            
+            return
+        }
+        
         arrTravel.removeLast()
         arrSelectedParentID.removeLast()
         if arrTravel.count == 1 {
@@ -331,9 +386,21 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
         
         return cell
         } else {
+            
+            let model = arrSelectedChoices[indexPath.row]
+            
+            if model.strImageName.isEmpty {
+                
+                let cell = clVwSelectedChoices.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! SelectedChoiceWithTextOnlyCell
+                
+                cell.selectedChoice = model
+                
+                return cell
+            }
+            
             let cell = clVwSelectedChoices.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SelectedChoiceCell
             
-            cell.selectedChoice = arrSelectedChoices[indexPath.row]
+            cell.selectedChoice = model
             
             return cell
         }
@@ -344,6 +411,13 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
                                 sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == clVwChoices {
+            
+            let model = arrSelectedChoices[indexPath.row]
+            
+            if model.strImageName.isEmpty {
+                return collectionView.contentSize
+            }
+            
             return CGSize(width: 184, height: 140)
         }
                         
@@ -373,6 +447,37 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
             
             choices[indexPath.row].isSelected.toggle()
             clVwChoices.reloadItems(at: [IndexPath.init(item: indexPath.row, section: 0)])
+            
+//            let arrChoice = choices.map({$0.isSelected == true})
+//
+//            debugPrint(arrChoice)
+            if choices.filter({$0.isSelected}).count != 0 {
+                
+//                btnDelete.tag = 1
+//                btnDelete.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
+//                btnDelete.alpha = 1.0
+//                btnDelete.isEnabled = true
+                btnBack.tag = 1
+                btnBack.isEnabled = true
+                btnBack.alpha = 1.0
+                btnBack.imageView?.tintColor = UIColor.blue
+                btnBack.setImage(#imageLiteral(resourceName: "ic_delete"), for: .normal)
+//                lblDelete.text = "Change"
+                lblBack.text = "Delete"
+                
+            } else {
+//                btnDelete.alpha = 0.5
+//                btnDelete.isEnabled = false
+                btnBack.isEnabled = false
+                btnBack.alpha = 0.5
+//                btnDelete.tag = 0
+//                btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+                btnBack.tag = 0
+                btnBack.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
+//                lblDelete.text = "Delete"
+                lblBack.text = "Back"
+            }
+            
             return
         }
         
@@ -387,6 +492,12 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
             self.readChoiceDB(parentID: model.id, withTableName: strSelectedTable)
             
         } else {
+            
+            if let audioURL = URL(string: model.recordingPath!) {
+                
+                audioManager.playAudioFile(from: audioURL)
+                
+            }
             
             arrSelectedChoices.append(selectedChoiceWords(strCaption: model.caption, strImageName: model.imgPath!))
            

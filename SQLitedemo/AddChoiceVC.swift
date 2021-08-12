@@ -121,33 +121,18 @@ class AddChoiceVC: UIViewController {
 
 extension AddChoiceVC {
     
-    
     @IBAction func btnPlayRecoding(_ sender: Any) {
         
-        var avPlayer = AVAudioPlayer()
-        
-        
-        do {
-            
+        if audioURL != nil {
             let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
             let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
             let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
             if let dirPath = paths.first{
                 let audioURL1 = URL(fileURLWithPath: dirPath).appendingPathComponent("recordings/\(audioURL!.lastPathComponent)")
-                avPlayer =  try AVAudioPlayer(contentsOf: audioURL1)
-                avPlayer.prepareToPlay()
-               
+                
+                audioManager.playAudioFile(from: audioURL)
             }
-            
-//            if let fileURL = Bundle.main.path(forResource: "openmenu", ofType: "wav") {
-//                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: fileURL))
-//            } else {
-//                print("No file with specified name exists")
-//            }
-        } catch let error {
-            print("Can't play the audio file failed with an error \(error.localizedDescription)")
         }
-        
     }
     @IBAction func btnRecording(_ sender: Any) {
         if audioManager.recording() {
@@ -192,7 +177,7 @@ extension AddChoiceVC {
             imagePath =  APPDELEGATE.saveImageToDocumentDirectory(image: image, fileName: "\(Date().timeIntervalSince1970).png")
         }
         
-        if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory, tableName: strSelectedTable!) {
+        if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: audioURL != nil ? audioURL!.absoluteString : "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory, tableName: strSelectedTable!) {
             
             self.callBack?()
         }

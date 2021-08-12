@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CEp-Ns-3iL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CEp-Ns-3iL">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -28,6 +28,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="84" height="63.5"/>
                                                 <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                                 <state key="normal" image="delete"/>
+                                                <connections>
+                                                    <action selector="btnDeletePressed:" destination="CEp-Ns-3iL" eventType="touchUpInside" id="OBN-oB-jFi"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clx-hj-KRU">
                                                 <rect key="frame" x="0.0" y="63.5" width="84" height="20.5"/>
@@ -68,7 +71,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2rX-Iz-Tkp">
                                                 <rect key="frame" x="8" y="0.0" width="808" height="84"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="op6-Vk-F6b">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="op6-Vk-F6b">
                                                     <size key="itemSize" width="106" height="83"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -90,6 +93,10 @@
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="picture" translatesAutoresizingMaskIntoConstraints="NO" id="Rdz-IS-nbA">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="106" height="58.5"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="106" id="A0Q-Tq-N97"/>
+                                                                                        <constraint firstAttribute="height" constant="58.5" id="KHK-Xv-iZT"/>
+                                                                                    </constraints>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzK-sZ-KwC">
                                                                                     <rect key="frame" x="0.0" y="62.5" width="106" height="20.5"/>
@@ -120,6 +127,31 @@
                                                         <connections>
                                                             <outlet property="imgChoice" destination="Rdz-IS-nbA" id="wzP-yG-ffZ"/>
                                                             <outlet property="lblChoice" destination="qzK-sZ-KwC" id="9Dy-7w-Huc"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cell1" id="jQR-GJ-s7q" customClass="SelectedChoiceWithTextOnlyCell" customModule="SQLitedemo" customModuleProvider="target">
+                                                        <rect key="frame" x="116" y="22" width="67.5" height="40"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8Kf-5m-GyC">
+                                                            <rect key="frame" x="0.0" y="0.0" width="67.5" height="40"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4W-bV-y8A">
+                                                                    <rect key="frame" x="8" y="8" width="51.5" height="24"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="O4W-bV-y8A" secondAttribute="bottom" constant="8" id="MX4-eF-90Z"/>
+                                                                <constraint firstItem="O4W-bV-y8A" firstAttribute="top" secondItem="8Kf-5m-GyC" secondAttribute="top" constant="8" id="cZ0-S8-oEN"/>
+                                                                <constraint firstAttribute="trailing" secondItem="O4W-bV-y8A" secondAttribute="trailing" constant="8" id="q3u-G0-Nle"/>
+                                                                <constraint firstItem="O4W-bV-y8A" firstAttribute="leading" secondItem="8Kf-5m-GyC" secondAttribute="leading" constant="8" id="vvg-gx-n6l"/>
+                                                            </constraints>
+                                                        </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="lblChoice" destination="O4W-bV-y8A" id="1gQ-Sa-ttU"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -433,6 +465,8 @@
                         <outlet property="btnMistake" destination="0Pz-4u-oER" id="9si-fD-hut"/>
                         <outlet property="clVwChoices" destination="haW-tx-5up" id="dSu-Ig-XqR"/>
                         <outlet property="clVwSelectedChoices" destination="2rX-Iz-Tkp" id="nIB-iD-2a2"/>
+                        <outlet property="lblBack" destination="iXH-Se-6KV" id="Ndo-Jp-Ys0"/>
+                        <outlet property="lblDelete" destination="clx-hj-KRU" id="fs5-nR-tqP"/>
                         <outlet property="lblKeyboard" destination="ECb-Ic-AGi" id="sig-0Z-WEU"/>
                         <outlet property="lblTravelPath" destination="Tde-Yn-odP" id="ePY-x4-Ksx"/>
                     </connections>
@@ -1200,7 +1234,7 @@
         <image name="edit" width="42.666667938232422" height="42.666667938232422"/>
         <image name="folder" width="170.66667175292969" height="140.66667175292969"/>
         <image name="home" width="42.666667938232422" height="42.666667938232422"/>
-        <image name="ic_delete" width="512" height="512"/>
+        <image name="ic_delete" width="42.666667938232422" height="42.666667938232422"/>
         <image name="keyboard" width="42.666667938232422" height="42.666667938232422"/>
         <image name="pen" width="170.66667175292969" height="170.66667175292969"/>
         <image name="photo-camera" width="170.66667175292969" height="170.66667175292969"/>

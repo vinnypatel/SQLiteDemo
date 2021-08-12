@@ -246,8 +246,8 @@ class DBHelper
         return psns
     }
     
-    func deleteByID(id:Int) {
-        let deleteStatementStirng = "DELETE FROM TABLE_CHOICE WHERE Id = ?;"
+    func deleteByID(id:Int, fromTable tableName: String) {
+        let deleteStatementStirng = "DELETE FROM \(tableName) WHERE Id = ?;"
         var deleteStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, deleteStatementStirng, -1, &deleteStatement, nil) == SQLITE_OK {
             sqlite3_bind_int(deleteStatement, 1, Int32(id))

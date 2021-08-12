@@ -23,12 +23,32 @@ class SelectedChoiceCell: UICollectionViewCell {
             
             if model.strImageName.isEmpty {
                 imgChoice.isHidden = true
+                lblChoice.font = UIFont.systemFont(ofSize: 18,weight: .bold)
             } else {
+                lblChoice.font = UIFont.systemFont(ofSize: 17,weight: .regular)
                 imgChoice.isHidden = false
                 let img = APPDELEGATE.loadImageFromDocumentDirectory(nameOfImage: model.strImageName)
                 imgChoice.image = img
             }
             
+        }
+    }
+    
+}
+
+class SelectedChoiceWithTextOnlyCell: UICollectionViewCell {
+    
+    @IBOutlet weak var lblChoice: UILabel!
+    
+    var selectedChoice : selectedChoiceWords? {
+        didSet {
+            
+            guard let model = selectedChoice else {
+                return
+            }
+            lblChoice.font = UIFont.systemFont(ofSize: 18,weight: .bold)
+            lblChoice.text = model.strCaption
+
         }
     }
     
