@@ -28,6 +28,7 @@ class AddChoiceVC: UIViewController {
     @IBOutlet weak var btnPlay: UIButton!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnDeleteRecord: UIButton!
+    var isSaved = false
     var audioURL : URL?
 
     var strSelectedTable: String?
@@ -121,17 +122,25 @@ class AddChoiceVC: UIViewController {
 
 extension AddChoiceVC {
     
+    @IBAction func btnDeleteRecording(_ sender: Any) {
+        
+        if audioURL != nil {
+            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(audioURL!.lastPathComponent)")
+        }
+    }
     @IBAction func btnPlayRecoding(_ sender: Any) {
         
         if audioURL != nil {
-            let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
-            let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-            let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
-            if let dirPath = paths.first{
-                let audioURL1 = URL(fileURLWithPath: dirPath).appendingPathComponent("recordings/\(audioURL!.lastPathComponent)")
-                
-                audioManager.playAudioFile(from: audioURL)
-            }
+            
+            audioManager.playAudioFile(from: audioURL)
+//            let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+//            let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+//            let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+//            if let dirPath = paths.first{
+//                let audioURL1 = URL(fileURLWithPath: dirPath).appendingPathComponent("recordings/\(audioURL!.lastPathComponent)")
+//
+//                audioManager.playAudioFile(from: audioURL)
+//            }
         }
     }
     @IBAction func btnRecording(_ sender: Any) {
@@ -167,6 +176,13 @@ extension AddChoiceVC {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        if !isSaved && audioURL != nil{
+            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(audioURL!.lastPathComponent)")
+        }
+    }
+    
     @IBAction func btnSavePressed(_ sender: Any) {
         
         let db:DBHelper = DBHelper()
@@ -178,8 +194,11 @@ extension AddChoiceVC {
         }
         
         if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: audioURL != nil ? audioURL!.absoluteString : "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory, tableName: strSelectedTable!) {
-            
-            self.callBack?()
+            isSaved = true
+            self.dismiss(animated: true) {
+                
+                self.callBack?()
+            }
         }
         
     }
@@ -246,7 +265,7 @@ extension AddChoiceVC {
     
     @IBAction func btnColorsPressed(_ sender: UIButton) {
         
-        var clr : UIColor = .clear
+        var clr : UIColor = .lightGray
         switch sender.tag {
         case 0:
             clr = #colorLiteral(red: 0.7608028054, green: 0.3028233647, blue: 0, alpha: 1)

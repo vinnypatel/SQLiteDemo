@@ -10,7 +10,7 @@
 import UIKit
 import TagListView
 
-class ViewController: UIViewController {
+class NewChoiceVC: UIViewController {
 
     @IBOutlet weak var vwTag: TagListView!
     
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnMistake: UIButton!
     @IBOutlet weak var btnAler:UIButton!
-    
+
     private let audioManager: SCAudioManager!
     //private let arrSelectedCellForEdit: [Int] = []
     required init?(coder: NSCoder) {
@@ -236,7 +236,7 @@ class ViewController: UIViewController {
                 tempView.animationRoted(angle: CGFloat(Double.pi))
                 
                 tempView.frame.origin.x = self.clVwSelectedChoices.frame.width/2
-                tempView.frame.origin.y = self.clVwSelectedChoices.frame.height
+                tempView.frame.origin.y = self.clVwSelectedChoices.frame.height/2
                 
             }, completion: { _ in
                 
@@ -258,7 +258,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController {
+extension NewChoiceVC {
     
     @IBAction func btnCorePressed(_ sender: UIButton) {
 
@@ -300,21 +300,9 @@ extension ViewController {
                 if arrChoiceWithParentID.count > 0 {
                     myGroup.enter()
                     arrChoiceWithParentID.forEach { id in
-                        if id.imgPath != nil {
-                            APPDELEGATE.deleteFile(fileNameToDelete: id.imgPath!)
-                        }
-                        if id.recordingPath != nil {
-                            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(URL(string:id.recordingPath!)!.lastPathComponent)")
-                        }
                         db.deleteByID(id: id.id, fromTable: strSelectedTable)
                         myGroup.leave()
                     }
-                }
-                if choice.imgPath != nil {
-                    APPDELEGATE.deleteFile(fileNameToDelete: choice.imgPath!)
-                }
-                if choice.recordingPath != nil {
-                    APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(URL(string:choice.recordingPath!)!.lastPathComponent)")
                 }
                 
                 db.deleteByID(id: choice.id, fromTable: strSelectedTable)
@@ -432,7 +420,7 @@ extension ViewController {
 }
 
 
-extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension NewChoiceVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
         if collectionView == clVwChoices {
@@ -596,7 +584,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
     }
 }
 
-extension ViewController : TagListViewDelegate {
+extension NewChoiceVC : TagListViewDelegate {
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         
         var arrTemp = arrSelectedChoices.last

@@ -51,9 +51,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dirPath = paths.first{
             let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(nameOfImage)
             let image    = UIImage(contentsOfFile: imageURL.path)
-            return image!
+            return image != nil ? image! : #imageLiteral(resourceName: "picture")
         }
         return UIImage.init(named: "default.png")!
+    }
+    
+    func deleteFile(fileNameToDelete: String) {
+       // let fileNameToDelete = "myFileName.txt"
+        var filePath = ""
+        // Fine documents directory on device
+         let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        if dirs.count > 0 {
+            let dir = dirs[0] //documents directory
+            filePath = dir.appendingFormat("/" + fileNameToDelete)
+            print("Local path = \(filePath)")
+         
+        } else {
+            print("Could not find local directory to store file")
+            return
+        }
+        do {
+             let fileManager = FileManager.default
+            
+            // Check if file exists
+            if fileManager.fileExists(atPath: filePath) {
+                // Delete file
+                try fileManager.removeItem(atPath: filePath)
+            } else {
+                print("File does not exist")
+            }
+         
+        }
+        catch let error as NSError {
+            print("An error took place: \(error)")
+        }
     }
 
 }
