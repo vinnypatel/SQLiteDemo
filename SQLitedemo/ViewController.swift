@@ -110,7 +110,6 @@ class ViewController: UIViewController {
                     }
                 }
             }
- 
         }
     }
     
@@ -138,7 +137,7 @@ class ViewController: UIViewController {
         
         let arrCaption = arrSelectedChoices.map({$0.strCaption})
         let utterance = AVSpeechUtterance(string: arrCaption.joined())
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.5
 
         let synthesizer = AVSpeechSynthesizer()
@@ -273,6 +272,24 @@ extension ViewController {
     }
     @IBAction func btnDeletePressed(_ sender: Any) {
         
+        if btnDelete.tag == 1 {
+            let arrSelectedChoices = choices.filter({$0.isSelected})
+            if arrSelectedChoices.count == 1 {
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddChoiceVC") as! AddChoiceVC
+                vc.selectedChoice = arrSelectedChoices[0]
+                vc.modalTransitionStyle = .crossDissolve
+                vc.modalPresentationStyle = .fullScreen
+                vc.selectedParentID = arrSelectedChoices[0].parentId
+                vc.strSelectedTable = strSelectedTable
+                vc.callBack = { [weak self] in
+                    self!.readChoiceDB(parentID: self!.selectedParentID, withTableName: self!.strSelectedTable)
+                }
+                self.present(vc, animated: true, completion: nil)
+            }
+            return
+        }
+        
         if arrSelectedChoices.count > 0 {
             arrSelectedChoices.removeLast()
         }
@@ -300,23 +317,22 @@ extension ViewController {
                 if arrChoiceWithParentID.count > 0 {
                     myGroup.enter()
                     arrChoiceWithParentID.forEach { id in
-                        if id.imgPath != nil {
+                        if id.imgPath != "" {
                             APPDELEGATE.deleteFile(fileNameToDelete: id.imgPath!)
                         }
-                        if id.recordingPath != nil {
-                            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(URL(string:id.recordingPath!)!.lastPathComponent)")
+                        if id.recordingPath != "", let recordURL = URL(string:id.recordingPath!)?.lastPathComponent {
+                            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(recordURL)")
                         }
                         db.deleteByID(id: id.id, fromTable: strSelectedTable)
                         myGroup.leave()
                     }
                 }
-                if choice.imgPath != nil {
+                if choice.imgPath != "" {
                     APPDELEGATE.deleteFile(fileNameToDelete: choice.imgPath!)
                 }
-                if choice.recordingPath != nil {
-                    APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(URL(string:choice.recordingPath!)!.lastPathComponent)")
-                }
-                
+                if choice.recordingPath != "", let recordURL = URL(string:choice.recordingPath!)?.lastPathComponent  {
+                    APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(recordURL)")
+                    }
                 db.deleteByID(id: choice.id, fromTable: strSelectedTable)
                 myGroup.leave()
             }
@@ -361,20 +377,57 @@ extension ViewController {
         } else {
             if lblBack.text == "Delete" {
                 readChoiceDB(parentID: arrSelectedParentID[arrSelectedParentID.last!], withTableName: strSelectedTable)
-                if arrTravel.count == 1 {
-                    
-                    btnBack.isEnabled = false
-                    btnBack.alpha = 0.5
+                btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+                btnDelete.tag = 0
+                if arrTravel.count >= 1 {
+                    btnDelete.isEnabled = true
+                    btnDelete.alpha = 1.0
+                    if arrTravel.count == 1 {
+                        
+                        btnBack.isEnabled = false
+                        btnBack.alpha = 0.5
+                        btnHome.isEnabled = false
+                        btnHome.alpha = 0.5
+                        
+                    } else {
+                        
+                        btnBack.isEnabled = true
+                        btnBack.alpha = 1.0
+                        btnHome.isEnabled = true
+                        btnHome.alpha = 1.0
+                    }
                     
                 } else {
-                    
-                    btnBack.isEnabled = true
-                    btnBack.alpha = 1.0
+                    btnBack.isEnabled = false
+                    btnBack.alpha = 0.5
                 }
                
                 btnBack.tag = 0
                 btnBack.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
                 lblBack.text = "Back"
+            } else {
+                if arrTravel.count >= 1 {
+                    btnDelete.isEnabled = true
+                    btnDelete.alpha = 1.0
+                    if arrTravel.count == 1 {
+                        
+                        btnBack.isEnabled = false
+                        btnBack.alpha = 0.5
+                        btnHome.isEnabled = false
+                        btnHome.alpha = 0.5
+                        
+                    } else {
+                        
+                        btnBack.isEnabled = true
+                        btnBack.alpha = 1.0
+                        btnHome.isEnabled = true
+                        btnHome.alpha = 1.0
+                    }
+                    
+                } else {
+                    btnBack.isEnabled = false
+                    btnBack.alpha = 0.5
+                }
             }
             btnKeyboard.setImage(#imageLiteral(resourceName: "keyboard"), for: .normal)
             lblKeyboard.text = "Keyboard"
@@ -432,7 +485,7 @@ extension ViewController {
 }
 
 
-extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
         if collectionView == clVwChoices {
@@ -477,19 +530,23 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
                                 layout collectionViewLayout: UICollectionViewLayout,
                                 sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if collectionView == clVwChoices {
+        if collectionView == clVwSelectedChoices {
             
             let model = arrSelectedChoices[indexPath.row]
             
-            if model.strImageName.isEmpty {
+            if model.strImageName.isEmpty{
                 return collectionView.contentSize
             }
             
-            return CGSize(width: 184, height: 140)
+            return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 106, height: 83) : CGSize(width: 106, height: 83)
         }
-                        
+         
+//        if UIDevice.current.userInterfaceIdiom == .phone{
+//            return collectionView.contentSize
+//        }
+       // return collectionView.contentSize
+        return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 120, height: 100) :CGSize(width: 184, height: 140)
         
-        return CGSize(width: 106, height: 83)
             }
 
             func collectionView(_ collectionView: UICollectionView,
@@ -524,6 +581,15 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
 //                btnDelete.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
 //                btnDelete.alpha = 1.0
 //                btnDelete.isEnabled = true
+                if choices.filter({$0.isSelected}).count == 1 {
+                    btnDelete.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
+                    btnDelete.tag = 1
+                    btnDelete.isEnabled = true
+                    btnDelete.alpha = 1.0
+                } else {
+                    btnDelete.isEnabled = false
+                    btnDelete.alpha = 0.5
+                }
                 btnBack.tag = 1
                 btnBack.isEnabled = true
                 btnBack.alpha = 1.0
@@ -533,12 +599,13 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
                 lblBack.text = "Delete"
                 
             } else {
-//                btnDelete.alpha = 0.5
-//                btnDelete.isEnabled = false
+                
+                btnDelete.alpha = 0.5
+                btnDelete.isEnabled = false
                 btnBack.isEnabled = false
                 btnBack.alpha = 0.5
-//                btnDelete.tag = 0
-//                btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
+                btnDelete.tag = 0
+                btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
                 btnBack.tag = 0
                 btnBack.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
 //                lblDelete.text = "Delete"

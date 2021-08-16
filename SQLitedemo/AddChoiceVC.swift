@@ -33,6 +33,8 @@ class AddChoiceVC: UIViewController {
 
     var strSelectedTable: String?
     
+    var selectedChoice : Choices?
+    
     required init?(coder: NSCoder) {
         audioManager = SCAudioManager()
         
@@ -78,14 +80,38 @@ class AddChoiceVC: UIViewController {
         super.viewDidLoad()
         
         tfCaption.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
-
-        if isCategory {
-            vwBgImg.isHidden = false
-            vwImageBg.backgroundColor = .clear
-            tfCaption.placeholder = "Enter Category"
-            vwBgImg.image = #imageLiteral(resourceName: "folder")
-            vwBgImg.tintColor = .lightGray
+        
+        if selectedChoice != nil {
+            
+            tfCaption.text = selectedChoice?.caption
+            lblCaption.text = selectedChoice?.caption
+            tfMoreWords.text = selectedChoice?.moreWords
+            tfWorkType.text = selectedChoice?.wordType.rawValue
+            isCategory = selectedChoice!.isCategory
+            strWordType = (selectedChoice?.wordType)!.rawValue
+            if selectedChoice?.recordingPath != "" {
+                audioURL = URL(string: selectedChoice!.recordingPath!)
+            }
+            if isCategory {
+                vwBgImg.tintColor = UIColor(selectedChoice!.color)
+            } else {
+                vwImageBg.backgroundColor = UIColor(selectedChoice!.color)
+            }
+            
+            if selectedChoice?.imgPath != "" {
+                imgVw.image = APPDELEGATE.loadImageFromDocumentDirectory(nameOfImage: selectedChoice!.imgPath!)
+            }
+        } else {
+            if isCategory {
+                vwBgImg.isHidden = false
+                vwImageBg.backgroundColor = .clear
+                tfCaption.placeholder = "Enter Category"
+                vwBgImg.image = #imageLiteral(resourceName: "folder")
+                vwBgImg.tintColor = .lightGray
+            }
         }
+
+       
 
         // Do any additional setup after loading the view.
     }
@@ -144,6 +170,13 @@ extension AddChoiceVC {
         }
     }
     @IBAction func btnRecording(_ sender: Any) {
+        
+        if audioURL != nil {
+            
+            APPDELEGATE.deleteFile(fileNameToDelete: "recordings/\(audioURL!.lastPathComponent)")
+        }
+        
+        
         if audioManager.recording() {
             audioManager.stopRecording()
             btnRecord.tintColor = .red//setTitle("Start Recording", for: .normal)
@@ -189,8 +222,29 @@ extension AddChoiceVC {
         
         var imagePath = ""
         if let image = imgVw.image {
+            
+            if selectedChoice?.imgPath != "" {
                 
-            imagePath =  APPDELEGATE.saveImageToDocumentDirectory(image: image, fileName: "\(Date().timeIntervalSince1970).png")
+                imagePath =  APPDELEGATE.saveImageToDocumentDirectory(image: image, fileName: selectedChoice != nil ? "\(URL(string:selectedChoice!.imgPath!)?.lastPathComponent ?? "")" : "\(Date().timeIntervalSince1970).png")
+                
+            } else {
+                
+                imagePath =  APPDELEGATE.saveImageToDocumentDirectory(image: image, fileName: "\(Date().timeIntervalSince1970).png")
+            }
+        }
+        
+        if selectedChoice != nil {
+            
+            if db.updateById(id: selectedChoice!.id, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: audioURL != nil ? audioURL!.absoluteString : "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords!.text!, isCategory: isCategory, tableName: strSelectedTable!) {
+                
+                isSaved = true
+                self.dismiss(animated: true) {
+                    
+                    self.callBack?()
+                }
+            }
+            
+            return
         }
         
         if db.insert(id: 0, parentId: selectedParentID, caption: tfCaption.text!, showInMessageBox: false, imgPath: imagePath, recordingPath: audioURL != nil ? audioURL!.absoluteString : "", wordType: strWordType, color: vwbgColor.hexString(), moreWords: tfMoreWords.text!, isCategory: isCategory, tableName: strSelectedTable!) {

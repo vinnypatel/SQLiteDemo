@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		B166ADC126B2B4C3007B9E11 /* GradientView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADBA26B2B4C2007B9E11 /* GradientView1.swift */; };
 		B166ADD426B2CA19007B9E11 /* AddChoiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADD326B2CA19007B9E11 /* AddChoiceVC.swift */; };
 		B166ADD726B2D47B007B9E11 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADD626B2D47B007B9E11 /* CameraHandler.swift */; };
+		B184C97E26CA647B00DA632D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */; };
 		B1BAD97E26BAA6DF00D202EA /* selectedChoiceWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD97D26BAA6DF00D202EA /* selectedChoiceWords.swift */; };
 		B1BAD98126BAA7F800D202EA /* SelectedChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD98026BAA7F800D202EA /* SelectedChoiceCell.swift */; };
 		B1BAD9AB26C13F4C00D202EA /* TempiFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD9A526C13F4B00D202EA /* TempiFFT.swift */; };
@@ -58,6 +59,7 @@
 		B166ADBA26B2B4C2007B9E11 /* GradientView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView1.swift; sourceTree = "<group>"; };
 		B166ADD326B2CA19007B9E11 /* AddChoiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoiceVC.swift; sourceTree = "<group>"; };
 		B166ADD626B2D47B007B9E11 /* CameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
+		B184C97D26CA647B00DA632D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		B1BAD97D26BAA6DF00D202EA /* selectedChoiceWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectedChoiceWords.swift; sourceTree = "<group>"; };
 		B1BAD98026BAA7F800D202EA /* SelectedChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChoiceCell.swift; sourceTree = "<group>"; };
 		B1BAD9A126C13F4400D202EA /* DSWaveformImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSWaveformImage.h; sourceTree = "<group>"; };
@@ -99,7 +101,6 @@
 				77852B7E14F54731B8B7210C /* Pods-SQLitedemo.debug.xcconfig */,
 				1AE15E5FEFF730AB496E3B71 /* Pods-SQLitedemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -182,6 +183,7 @@
 		B1BF744F26B011C10072D31E /* SQLitedemo */ = {
 			isa = PBXGroup;
 			children = (
+				B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */,
 				B1BAD99F26C13F1A00D202EA /* DSWaveformImage */,
 				B103935F26B40E9400983E48 /* HEXColor */,
 				B166ADB326B2B4B2007B9E11 /* CustomClasses */,
@@ -264,6 +266,7 @@
 			files = (
 				B166AD9826B1A1DC007B9E11 /* IMG_0319.png in Resources */,
 				B1BF745D26B011C90072D31E /* LaunchScreen.storyboard in Resources */,
+				B184C97E26CA647B00DA632D /* Main_iPhone.storyboard in Resources */,
 				B1BF745A26B011C90072D31E /* Assets.xcassets in Resources */,
 				B1BF745826B011C20072D31E /* Main.storyboard in Resources */,
 			);
@@ -350,6 +353,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B184C97D26CA647B00DA632D /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
 		B1BF745626B011C20072D31E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
