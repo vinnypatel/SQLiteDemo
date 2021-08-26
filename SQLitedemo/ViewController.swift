@@ -138,7 +138,7 @@ class ViewController: UIViewController {
         let arrCaption = arrSelectedChoices.map({$0.strCaption})
         let utterance = AVSpeechUtterance(string: arrCaption.joined())
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = 0.5
+        utterance.rate = 0.3
 
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
@@ -535,30 +535,38 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
             let model = arrSelectedChoices[indexPath.row]
             
             if model.strImageName.isEmpty{
-                return collectionView.contentSize
+                let height = collectionView.contentSize.height
+                let text = model.strCaption
+                let width = text.width(withConstrainedHeight: height, font: UIFont.boldSystemFont(ofSize: 18)) + 8
+                    return CGSize(width: width, height: height)
+//                let size = (model.strCaption as NSString).size(withAttributes: nil)
+//                return CGSize(width: size.width, height: collectionView.contentSize.height)
             }
             
-            return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 106, height: 83) : CGSize(width: 106, height: 83)
+            return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 106, height: 64) : CGSize(width: 106, height: 84)
         }
          
 //        if UIDevice.current.userInterfaceIdiom == .phone{
 //            return collectionView.contentSize
 //        }
        // return collectionView.contentSize
-        return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 120, height: 100) :CGSize(width: 184, height: 140)
+        
+        
+        
+        return UIDevice.current.userInterfaceIdiom == .phone ? CGSize(width: 120, height: collectionView.frame.height/3 - 4) :CGSize(width: 184, height: 140)
         
             }
 
             func collectionView(_ collectionView: UICollectionView,
                                 layout collectionViewLayout: UICollectionViewLayout,
                                 minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-                return 1.0
+                return 0.0
             }
 
             func collectionView(_ collectionView: UICollectionView, layout
                 collectionViewLayout: UICollectionViewLayout,
                                 minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-                return 1.0
+                return 6.0
             }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -684,3 +692,15 @@ extension UIView{
     }
 }
 ///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPPbap63zyb9CB1njdwK-------
+
+extension String {
+
+    public func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect,
+                                        options: .usesLineFragmentOrigin,
+                                        attributes: [.font: font], context: nil)
+
+        return ceil(boundingBox.width)
+    }
+}

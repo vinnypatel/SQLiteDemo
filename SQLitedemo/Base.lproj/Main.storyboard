@@ -71,7 +71,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2rX-Iz-Tkp">
                                                 <rect key="frame" x="8" y="0.0" width="808" height="84"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="op6-Vk-F6b">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="op6-Vk-F6b">
                                                     <size key="itemSize" width="106" height="83"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -130,14 +130,14 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cell1" id="jQR-GJ-s7q" customClass="SelectedChoiceWithTextOnlyCell" customModule="SQLitedemo" customModuleProvider="target">
-                                                        <rect key="frame" x="116" y="22" width="67.5" height="40"/>
+                                                        <rect key="frame" x="116" y="0.5" width="106" height="83"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8Kf-5m-GyC">
-                                                            <rect key="frame" x="0.0" y="0.0" width="67.5" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="106" height="83"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4W-bV-y8A">
-                                                                    <rect key="frame" x="8" y="8" width="51.5" height="24"/>
+                                                                    <rect key="frame" x="8" y="8" width="90" height="67"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -150,6 +150,7 @@
                                                                 <constraint firstItem="O4W-bV-y8A" firstAttribute="leading" secondItem="8Kf-5m-GyC" secondAttribute="leading" constant="8" id="vvg-gx-n6l"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
+                                                        <size key="customSize" width="106" height="83"/>
                                                         <connections>
                                                             <outlet property="lblChoice" destination="O4W-bV-y8A" id="1gQ-Sa-ttU"/>
                                                         </connections>
@@ -2453,7 +2454,7 @@
                                     <constraint firstItem="S03-zr-CqJ" firstAttribute="leading" secondItem="OGC-Pb-h6M" secondAttribute="leading" constant="8" id="haU-Jy-90Y"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="haW-tx-5up">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="haW-tx-5up">
                                 <rect key="frame" x="8" y="188" width="908" height="572"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="g3c-3D-jZo">
@@ -2577,7 +2578,7 @@
                                 <color key="textColor" systemColor="systemBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pAo-5w-qml" customClass="TagListView" customModule="TagListView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAo-5w-qml" customClass="TagListView" customModule="TagListView">
                                 <rect key="frame" x="20" y="160" width="884" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -3405,6 +3406,9 @@
         </designable>
         <designable name="moP-bA-Tx1">
             <size key="intrinsicContentSize" width="59" height="30"/>
+        </designable>
+        <designable name="pAo-5w-qml">
+            <size key="intrinsicContentSize" width="884" height="20"/>
         </designable>
     </designables>
     <resources>
