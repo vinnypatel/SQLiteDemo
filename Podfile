@@ -9,3 +9,4 @@ target 'SQLitedemo' do
 	pod 'TagListView'
 
 end
+#Users/patelvin/Downloads/SQLiteDemo-Updated/Podfile

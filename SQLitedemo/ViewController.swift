@@ -29,6 +29,83 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnMistake: UIButton!
     @IBOutlet weak var btnAler:UIButton!
     
+    @IBOutlet weak var btnA: UIButton!
+    @IBOutlet weak var btnB: UIButton!
+    @IBOutlet weak var btnC: UIButton!
+    @IBOutlet weak var btnD: UIButton!
+    @IBOutlet weak var btnE: UIButton!
+    @IBOutlet weak var btnF: UIButton!
+    @IBOutlet weak var btnG: UIButton!
+    @IBOutlet weak var btnH: UIButton!
+    @IBOutlet weak var btnI: UIButton!
+    @IBOutlet weak var btnJ: UIButton!
+    @IBOutlet weak var btnK: UIButton!
+    @IBOutlet weak var btnL: UIButton!
+    @IBOutlet weak var btnM: UIButton!
+    @IBOutlet weak var btnN: UIButton!
+    @IBOutlet weak var btnO: UIButton!
+    @IBOutlet weak var btnP: UIButton!
+    @IBOutlet weak var btnQ: UIButton!
+    @IBOutlet weak var btnR: UIButton!
+    @IBOutlet weak var btnS: UIButton!
+    @IBOutlet weak var btnT: UIButton!
+    @IBOutlet weak var btnU: UIButton!
+    @IBOutlet weak var btnV: UIButton!
+    @IBOutlet weak var btnW: UIButton!
+    @IBOutlet weak var btnX: UIButton!
+    @IBOutlet weak var btnY: UIButton!
+    @IBOutlet weak var btnZ: UIButton!
+    
+    @IBOutlet weak var btnMinus: UIButton!
+    @IBOutlet weak var btnKeyboardDelete: UIButton!
+    @IBOutlet weak var btnComma: UIButton!
+    @IBOutlet weak var btnQue: UIButton!
+    @IBOutlet weak var btnShift1: UIButton!
+    @IBOutlet weak var btnShift2: UIButton!
+    @IBOutlet weak var btnSpace: UIButton!
+    
+    
+    @IBOutlet weak var imgVwShift1: UIImageView!
+    @IBOutlet weak var imgVwShift2: UIImageView!
+    
+    
+    @IBOutlet weak var vwKeyboard: UIView!
+    
+    var isMainDeletePressed: Bool = false
+    var isDoubleTap: Bool = false
+    var isSelected: Bool = false {
+        
+        didSet {
+            btnA.isSelected = isSelected
+            btnB.isSelected = isSelected
+            btnC.isSelected = isSelected
+            btnD.isSelected = isSelected
+            btnE.isSelected = isSelected
+            btnF.isSelected = isSelected
+            btnG.isSelected = isSelected
+            btnH.isSelected = isSelected
+            btnI.isSelected = isSelected
+            btnJ.isSelected = isSelected
+            btnK.isSelected = isSelected
+            btnL.isSelected = isSelected
+            btnM.isSelected = isSelected
+            btnN.isSelected = isSelected
+            btnO.isSelected = isSelected
+            btnP.isSelected = isSelected
+            btnQ.isSelected = isSelected
+            btnR.isSelected = isSelected
+            btnS.isSelected = isSelected
+            btnT.isSelected = isSelected
+            btnU.isSelected = isSelected
+            btnV.isSelected = isSelected
+            btnW.isSelected = isSelected
+            btnX.isSelected = isSelected
+            btnY.isSelected = isSelected
+            btnZ.isSelected = isSelected
+        }
+        
+    }
+    
     private let audioManager: SCAudioManager!
     //private let arrSelectedCellForEdit: [Int] = []
     required init?(coder: NSCoder) {
@@ -71,6 +148,27 @@ class ViewController: UIViewController {
             btnAler.alpha = isEnabled ? 1.0: 0.5
 
 
+        }
+    }
+    
+    var strkeyboardType: String = "" {
+        
+        didSet {
+            
+            if isMainDeletePressed {
+                return
+            }
+            
+            if arrSelectedChoices.count > 0 {
+                arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: strkeyboardType, strImageName: "")
+            } else {
+                arrSelectedChoices = [selectedChoiceWords(strCaption: strkeyboardType, strImageName: "")]
+            }
+            
+//            if strkeyboardType.isEmpty {
+//
+//            }
+            
         }
     }
     
@@ -123,10 +221,19 @@ class ViewController: UIViewController {
         vwTag.alignment = .center
         vwTag.delegate = self
         btnDelete.addTarget(self, action: #selector(multipleTap(_:event:)), for: .touchDownRepeat)
+//        btnShift1.addTarget(self, action: #selector(doubleTap(_:event:)), for: .touchDownRepeat)
+//        btnShift2.addTarget(self, action: #selector(doubleTap(_:event:)), for: .touchDownRepeat)
+//
         // Do any additional setup after loading the view.
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnChoicesWords))
         clVwSelectedChoices.addGestureRecognizer(tapGesture)
+        
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        btnShift1.addGestureRecognizer(doubleTapGesture)
+        
     }
     
     @objc func tapOnChoicesWords() {
@@ -178,6 +285,24 @@ class ViewController: UIViewController {
             
             arrSelectedChoices.removeAll()
         }
+    }
+    
+    @objc fileprivate func doubleTap() {
+      
+//        let touch: UITouch = event.allTouches!.first!
+//
+//
+//        if touch.tapCount == 2 {//&& (!btnShift1.isSelected || !btnShift2.isSelected) {
+//
+           isSelected = true
+            isDoubleTap = true
+            btnShift1.isSelected = true
+            btnShift2.isSelected = true
+            imgVwShift1.tintColor = .red
+            imgVwShift2.tintColor = .red
+        
+            // do action.
+      //  }
     }
 
     /*
@@ -255,6 +380,232 @@ class ViewController: UIViewController {
             
         })
     }
+    
+    
+    @IBAction func btnShiftClick(_ sender: Any) {
+        
+        if btnShift1.isSelected || btnShift2.isSelected {
+            isDoubleTap = false
+            btnShift1.isSelected = false
+            btnShift2.isSelected = false
+            imgVwShift1.tintColor = .white
+            imgVwShift2.tintColor = .white
+        } else {
+            btnShift1.isSelected = true
+            btnShift2.isSelected = true
+            imgVwShift1.tintColor = .red
+            imgVwShift2.tintColor = .red
+        }
+        
+        isSelected.toggle()
+    }
+    
+    @IBAction func btnDeleteFromKeyboard(_ sender: Any) {
+        
+        if arrSelectedChoices.count > 0 {
+         
+            if arrSelectedChoices.last?.strCaption == "" {
+                arrSelectedChoices.removeLast()
+                return
+            }
+            let tempArr = arrSelectedChoices.last
+            if tempArr!.strImageName.isEmpty {
+                
+                var strArr = tempArr!.strCaption.map( { String($0) })//Array(tempArr!.strCaption)
+                strArr.remove(at: strArr.count -  1)
+                
+                if strArr.count == 0 {
+                    strkeyboardType = ""
+                    arrSelectedChoices.removeLast()
+                    
+                } else {
+                    strkeyboardType = strArr.joined(separator: "")
+                    //arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: strArr.joined(separator: ""), strImageName: "")
+                }
+            }
+            
+        }
+    }
+
+    
+    @IBAction func btnKeyboardClick(_ sender: UIButton) {
+        
+        var tempString = ""
+        
+        switch sender.tag {
+        case 0:
+            tempString = strkeyboardType + "0"
+            break
+            
+        case 1:
+            tempString = strkeyboardType + "1"
+            break
+            
+        case 2:
+            tempString = strkeyboardType + "2"
+            break
+        case 3:
+            tempString = strkeyboardType + "3"
+            break
+        case 4:
+            tempString = strkeyboardType + "4"
+            break
+        case 5:
+            tempString = strkeyboardType + "5"
+            break
+        case 6:
+            tempString = strkeyboardType + "6"
+            break
+        case 7:
+            tempString = strkeyboardType + "7"
+            break
+        case 8:
+            tempString = strkeyboardType + "8"
+            break
+        case 9:
+            tempString = strkeyboardType + "9"
+            break
+        case 10:
+            tempString = strkeyboardType + "-"
+            break
+        case 11:
+            tempString = strkeyboardType + btnQ.titleLabel!.text!
+            break
+        case 12:
+            tempString = strkeyboardType + btnW.titleLabel!.text!
+            break
+        case 13:
+            tempString = strkeyboardType + btnE.titleLabel!.text!
+            break
+        case 14:
+            tempString = strkeyboardType + btnR.titleLabel!.text!
+            break
+            
+        case 15:
+            tempString = strkeyboardType + btnT.titleLabel!.text!
+            break
+        case 16:
+            tempString = strkeyboardType + btnY.titleLabel!.text!
+            break
+        case 17:
+            tempString = strkeyboardType + btnU.titleLabel!.text!
+            break
+        case 18:
+            tempString = strkeyboardType + btnI.titleLabel!.text!
+            break
+            
+        case 19:
+            tempString = strkeyboardType + btnO.titleLabel!.text!
+            break
+        case 20:
+            tempString = strkeyboardType + btnP.titleLabel!.text!
+            break
+//        case 21:
+//
+//            if arrSelectedChoices.count > 0 {
+//
+//                let tempArr = arrSelectedChoices.last
+//                if tempArr!.strImageName.isEmpty {
+//
+//                    var strArr = tempArr!.strCaption.map( { String($0) })//Array(tempArr!.strCaption)
+//                    strArr.remove(at: strArr.count -  1)
+//
+//                    if strArr.count == 0 {
+//                        arrSelectedChoices.removeLast()
+//                    } else {
+//                        tempString = strArr.joined(separator: "")
+//                        arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: strArr.joined(separator: ""), strImageName: "")
+//                    }
+//
+//
+//                }
+//
+//            }
+//           // tempString = strkeyboardType + btnA.titleLabel!.text!
+//            break
+        case 22:
+            tempString = strkeyboardType + btnA.titleLabel!.text!
+            break
+            
+        case 23:
+            tempString = strkeyboardType + btnS.titleLabel!.text!
+            break
+        case 24:
+            tempString = strkeyboardType + btnD.titleLabel!.text!
+            break
+        case 25:
+            tempString = strkeyboardType + btnF.titleLabel!.text!
+            break
+        case 26:
+            tempString = strkeyboardType + btnG.titleLabel!.text!
+            break
+            
+            
+        case 27:
+            tempString = strkeyboardType + btnH.titleLabel!.text!
+            break
+        case 28:
+            tempString = strkeyboardType + btnJ.titleLabel!.text!
+            break
+        case 29:
+            tempString = strkeyboardType + btnK.titleLabel!.text!
+            break
+        case 30:
+            tempString = strkeyboardType + btnL.titleLabel!.text!
+            break
+            
+        case 31:
+            tempString = strkeyboardType + btnL.titleLabel!.text!
+            break
+            
+            
+            
+        case 32:
+            tempString = strkeyboardType + btnZ.titleLabel!.text!
+            break
+        case 33:
+            tempString = strkeyboardType + btnX.titleLabel!.text!
+            break
+        case 34:
+            tempString = strkeyboardType + btnC.titleLabel!.text!
+            break
+            
+            
+        case 35:
+            tempString = strkeyboardType + btnV.titleLabel!.text!
+            break
+        case 36:
+            tempString = strkeyboardType + btnB.titleLabel!.text!
+            break
+        case 37:
+            tempString = strkeyboardType + btnN.titleLabel!.text!
+            break
+        case 38:
+            tempString = strkeyboardType + btnM.titleLabel!.text!
+            break
+            
+        case 39:
+            tempString = strkeyboardType + (btnShift1!.isSelected ? "!" : ",")
+            break
+        case 40:
+            tempString = strkeyboardType + (btnShift1!.isSelected ? "?" : ".")
+            break
+        case 41:
+            if arrSelectedChoices.last?.strCaption != "" {
+                //strkeyboardType = ""
+                arrSelectedChoices.append(selectedChoiceWords(strCaption: "", strImageName: ""))
+            }
+            break
+            
+        default:
+            break
+        }
+        
+        strkeyboardType = tempString
+        if !isDoubleTap {
+            isSelected = false
+        }
+    }
 }
 
 extension ViewController {
@@ -272,6 +623,8 @@ extension ViewController {
     }
     @IBAction func btnDeletePressed(_ sender: Any) {
         
+        
+        
         if btnDelete.tag == 1 {
             let arrSelectedChoices = choices.filter({$0.isSelected})
             if arrSelectedChoices.count == 1 {
@@ -287,11 +640,17 @@ extension ViewController {
                 }
                 self.present(vc, animated: true, completion: nil)
             }
+            
             return
         }
         
         if arrSelectedChoices.count > 0 {
             arrSelectedChoices.removeLast()
+            if !strkeyboardType.isEmpty {
+                isMainDeletePressed = true
+                strkeyboardType = ""
+                isMainDeletePressed = false
+            }
         }
     }
     
@@ -478,10 +837,50 @@ extension ViewController {
                 }
             
             self.present(alertView, animated: true, completion: nil)
+            return
         }
+        
+        if btnKeyboard.tag == 0 {
+            UIView.transition(with: vwKeyboard, duration: 0.5, options: .transitionCrossDissolve) { [weak self] in
+                self!.vwKeyboard.isHidden = false
+                self!.view.layoutIfNeeded()
+            } completion: { [weak self] _ in
+                self!.btnKeyboard.setImage(#imageLiteral(resourceName: "picture"), for: .normal)
+                self!.lblKeyboard.text = "Dashboard"
+                self!.btnKeyboard.tag = 1
+                if self!.arrSelectedChoices.count > 0 && !self!.arrSelectedChoices.last!.strCaption.isEmpty {
+                    self!.arrSelectedChoices.append(selectedChoiceWords(strCaption: "", strImageName: ""))
+                } else {
+                    self!.arrSelectedChoices = [selectedChoiceWords(strCaption: "", strImageName: "")]
+                }
+            }
+
+            
+        } else {
+            
+            if arrSelectedChoices.count > 0 && arrSelectedChoices.last?.strCaption == ""{
+                
+                arrSelectedChoices.removeLast()
+                
+            }
+            UIView.transition(with: vwKeyboard, duration: 0.5, options: .transitionCrossDissolve) { [weak self] in
+                self!.vwKeyboard.isHidden = true
+                self!.view.layoutIfNeeded()
+            } completion: { [weak self] _ in
+                self!.btnKeyboard.setImage(#imageLiteral(resourceName: "keyboard"), for: .normal)
+                self!.lblKeyboard.text = "Keyboard"
+                self!.btnKeyboard.tag = 0
+            }
+        }
+//       else {
+//
+//
+//
+//        }
         
        // let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddChoiceVC") as! AddChoiceVC
     }
+   
 }
 
 
@@ -514,7 +913,15 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                 let cell = clVwSelectedChoices.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! SelectedChoiceWithTextOnlyCell
                 
                 cell.selectedChoice = model
-                
+                if lblKeyboard.text != "Add" {
+                    if indexPath.row == arrSelectedChoices.count - 1 {
+                        cell.lblChoice.textColor = .red
+                    } else {
+                        cell.lblChoice.textColor = .black
+                    }
+                } else {
+                    cell.lblChoice.textColor = .black
+                }
                 return cell
             }
             

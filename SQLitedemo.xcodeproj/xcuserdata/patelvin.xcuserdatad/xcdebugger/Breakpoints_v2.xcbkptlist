@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "CD71B0B0-DDE7-48F0-A3ED-146A9B2A9C21"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../../../../patelvin/Downloads/DBDemo-master/DBDemo/DBDemo/ViewController.swift"
