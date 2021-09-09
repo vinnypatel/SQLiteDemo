@@ -10,6 +10,29 @@
 		B103936326B40EA700983E48 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103936026B40EA700983E48 /* UIColorExtension.swift */; };
 		B103936426B40EA700983E48 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103936126B40EA700983E48 /* StringExtension.swift */; };
 		B103936526B40EA700983E48 /* UIColorInputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103936226B40EA700983E48 /* UIColorInputError.swift */; };
+		B12879E326EA56FE004B52B7 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879D926EA56FD004B52B7 /* Archive.swift */; };
+		B12879E426EA56FE004B52B7 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DA26EA56FD004B52B7 /* Data+Compression.swift */; };
+		B12879E526EA56FE004B52B7 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DB26EA56FD004B52B7 /* Archive+Reading.swift */; };
+		B12879E626EA56FE004B52B7 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DC26EA56FD004B52B7 /* Data+Serialization.swift */; };
+		B12879E726EA56FE004B52B7 /* URL+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DD26EA56FD004B52B7 /* URL+ZIP.swift */; };
+		B12879E826EA56FE004B52B7 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DE26EA56FE004B52B7 /* FileManager+ZIP.swift */; };
+		B12879E926EA56FE004B52B7 /* Archive+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879DF26EA56FE004B52B7 /* Archive+Progress.swift */; };
+		B12879EA26EA56FE004B52B7 /* Archive+MemoryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879E026EA56FE004B52B7 /* Archive+MemoryFile.swift */; };
+		B12879EB26EA56FE004B52B7 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879E126EA56FE004B52B7 /* Archive+Writing.swift */; };
+		B12879EC26EA56FE004B52B7 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879E226EA56FE004B52B7 /* Entry.swift */; };
+		B12879EF26EA5F49004B52B7 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12879EE26EA5F49004B52B7 /* TempViewController.swift */; };
+		B12879F226EA5FA1004B52B7 /* ListAbstractions.zip in Resources */ = {isa = PBXBuildFile; fileRef = B12879F126EA5FA1004B52B7 /* ListAbstractions.zip */; };
+		B12879FB26EA6038004B52B7 /* Temp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12879F926EA6038004B52B7 /* Temp.storyboard */; };
+		B1287A0626EA65FB004B52B7 /* JHDownloadManager-master.zip in Resources */ = {isa = PBXBuildFile; fileRef = B1287A0526EA65FB004B52B7 /* JHDownloadManager-master.zip */; };
+		B1287A4226EA7065004B52B7 /* PDFPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3926EA7065004B52B7 /* PDFPageCollectionViewCell.swift */; };
+		B1287A4326EA7065004B52B7 /* TiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3A26EA7065004B52B7 /* TiledView.swift */; };
+		B1287A4426EA7065004B52B7 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3B26EA7065004B52B7 /* PDFViewController.swift */; };
+		B1287A4526EA7065004B52B7 /* PDFPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3C26EA7065004B52B7 /* PDFPageView.swift */; };
+		B1287A4626EA7065004B52B7 /* PDFDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3D26EA7065004B52B7 /* PDFDocument.swift */; };
+		B1287A4726EA7065004B52B7 /* PDFThumbnailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3E26EA7065004B52B7 /* PDFThumbnailCollectionViewController.swift */; };
+		B1287A4826EA7065004B52B7 /* PDFThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3F26EA7065004B52B7 /* PDFThumbnailCell.swift */; };
+		B1287A4926EA7065004B52B7 /* PDFReader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1287A4126EA7065004B52B7 /* PDFReader.storyboard */; };
+		B1287A4C26EA76F5004B52B7 /* QURAN.zip in Resources */ = {isa = PBXBuildFile; fileRef = B1287A4B26EA76F5004B52B7 /* QURAN.zip */; };
 		B166AD9226B18E04007B9E11 /* ChoiceClVwCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166AD9126B18E04007B9E11 /* ChoiceClVwCell.swift */; };
 		B166AD9826B1A1DC007B9E11 /* IMG_0319.png in Resources */ = {isa = PBXBuildFile; fileRef = B166AD9726B1A1DC007B9E11 /* IMG_0319.png */; };
 		B166ADBB26B2B4C3007B9E11 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADB426B2B4C2007B9E11 /* GradientView.swift */; };
@@ -48,6 +71,29 @@
 		B103936026B40EA700983E48 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		B103936126B40EA700983E48 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		B103936226B40EA700983E48 /* UIColorInputError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorInputError.swift; sourceTree = "<group>"; };
+		B12879D926EA56FD004B52B7 /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		B12879DA26EA56FD004B52B7 /* Data+Compression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Compression.swift"; sourceTree = "<group>"; };
+		B12879DB26EA56FD004B52B7 /* Archive+Reading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Reading.swift"; sourceTree = "<group>"; };
+		B12879DC26EA56FD004B52B7 /* Data+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
+		B12879DD26EA56FD004B52B7 /* URL+ZIP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+ZIP.swift"; sourceTree = "<group>"; };
+		B12879DE26EA56FE004B52B7 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
+		B12879DF26EA56FE004B52B7 /* Archive+Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Progress.swift"; sourceTree = "<group>"; };
+		B12879E026EA56FE004B52B7 /* Archive+MemoryFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+MemoryFile.swift"; sourceTree = "<group>"; };
+		B12879E126EA56FE004B52B7 /* Archive+Writing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
+		B12879E226EA56FE004B52B7 /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		B12879EE26EA5F49004B52B7 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		B12879F126EA5FA1004B52B7 /* ListAbstractions.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ListAbstractions.zip; sourceTree = "<group>"; };
+		B12879FA26EA6038004B52B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Temp.storyboard; sourceTree = "<group>"; };
+		B1287A0526EA65FB004B52B7 /* JHDownloadManager-master.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "JHDownloadManager-master.zip"; sourceTree = "<group>"; };
+		B1287A3926EA7065004B52B7 /* PDFPageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		B1287A3A26EA7065004B52B7 /* TiledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiledView.swift; sourceTree = "<group>"; };
+		B1287A3B26EA7065004B52B7 /* PDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		B1287A3C26EA7065004B52B7 /* PDFPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFPageView.swift; sourceTree = "<group>"; };
+		B1287A3D26EA7065004B52B7 /* PDFDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFDocument.swift; sourceTree = "<group>"; };
+		B1287A3E26EA7065004B52B7 /* PDFThumbnailCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFThumbnailCollectionViewController.swift; sourceTree = "<group>"; };
+		B1287A3F26EA7065004B52B7 /* PDFThumbnailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFThumbnailCell.swift; sourceTree = "<group>"; };
+		B1287A4126EA7065004B52B7 /* PDFReader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PDFReader.storyboard; sourceTree = "<group>"; };
+		B1287A4B26EA76F5004B52B7 /* QURAN.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = QURAN.zip; sourceTree = "<group>"; };
 		B166AD9126B18E04007B9E11 /* ChoiceClVwCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceClVwCell.swift; sourceTree = "<group>"; };
 		B166AD9726B1A1DC007B9E11 /* IMG_0319.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_0319.png; sourceTree = "<group>"; };
 		B166ADB426B2B4C2007B9E11 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -122,6 +168,54 @@
 			path = HEXColor;
 			sourceTree = "<group>";
 		};
+		B12879D826EA56EC004B52B7 /* ZipFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				B12879D926EA56FD004B52B7 /* Archive.swift */,
+				B12879E026EA56FE004B52B7 /* Archive+MemoryFile.swift */,
+				B12879DF26EA56FE004B52B7 /* Archive+Progress.swift */,
+				B12879DB26EA56FD004B52B7 /* Archive+Reading.swift */,
+				B12879E126EA56FE004B52B7 /* Archive+Writing.swift */,
+				B12879DA26EA56FD004B52B7 /* Data+Compression.swift */,
+				B12879DC26EA56FD004B52B7 /* Data+Serialization.swift */,
+				B12879E226EA56FE004B52B7 /* Entry.swift */,
+				B12879DE26EA56FE004B52B7 /* FileManager+ZIP.swift */,
+				B12879DD26EA56FD004B52B7 /* URL+ZIP.swift */,
+			);
+			path = ZipFoundation;
+			sourceTree = "<group>";
+		};
+		B1287A3726EA7065004B52B7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B1287A3826EA7065004B52B7 /* Classes */,
+				B1287A4026EA7065004B52B7 /* Assets */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		B1287A3826EA7065004B52B7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B1287A3926EA7065004B52B7 /* PDFPageCollectionViewCell.swift */,
+				B1287A3A26EA7065004B52B7 /* TiledView.swift */,
+				B1287A3B26EA7065004B52B7 /* PDFViewController.swift */,
+				B1287A3C26EA7065004B52B7 /* PDFPageView.swift */,
+				B1287A3D26EA7065004B52B7 /* PDFDocument.swift */,
+				B1287A3E26EA7065004B52B7 /* PDFThumbnailCollectionViewController.swift */,
+				B1287A3F26EA7065004B52B7 /* PDFThumbnailCell.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B1287A4026EA7065004B52B7 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B1287A4126EA7065004B52B7 /* PDFReader.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		B166ADB326B2B4B2007B9E11 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,13 +277,20 @@
 		B1BF744F26B011C10072D31E /* SQLitedemo */ = {
 			isa = PBXGroup;
 			children = (
+				B12879F926EA6038004B52B7 /* Temp.storyboard */,
+				B1287A3726EA7065004B52B7 /* Sources */,
+				B12879D826EA56EC004B52B7 /* ZipFoundation */,
 				B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */,
 				B1BAD99F26C13F1A00D202EA /* DSWaveformImage */,
 				B103935F26B40E9400983E48 /* HEXColor */,
 				B166ADB326B2B4B2007B9E11 /* CustomClasses */,
 				B1BF745026B011C10072D31E /* AppDelegate.swift */,
+				B1287A0526EA65FB004B52B7 /* JHDownloadManager-master.zip */,
 				B1BF746626B01B5B0072D31E /* DBHelper.swift */,
+				B12879EE26EA5F49004B52B7 /* TempViewController.swift */,
 				B1BF746726B01B5B0072D31E /* Choices.swift */,
+				B1287A4B26EA76F5004B52B7 /* QURAN.zip */,
+				B12879F126EA5FA1004B52B7 /* ListAbstractions.zip */,
 				B1BF745626B011C20072D31E /* Main.storyboard */,
 				B166AD9726B1A1DC007B9E11 /* IMG_0319.png */,
 				B1BF745926B011C90072D31E /* Assets.xcassets */,
@@ -264,11 +365,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1287A4926EA7065004B52B7 /* PDFReader.storyboard in Resources */,
 				B166AD9826B1A1DC007B9E11 /* IMG_0319.png in Resources */,
 				B1BF745D26B011C90072D31E /* LaunchScreen.storyboard in Resources */,
 				B184C97E26CA647B00DA632D /* Main_iPhone.storyboard in Resources */,
+				B1287A0626EA65FB004B52B7 /* JHDownloadManager-master.zip in Resources */,
 				B1BF745A26B011C90072D31E /* Assets.xcassets in Resources */,
+				B12879F226EA5FA1004B52B7 /* ListAbstractions.zip in Resources */,
+				B12879FB26EA6038004B52B7 /* Temp.storyboard in Resources */,
 				B1BF745826B011C20072D31E /* Main.storyboard in Resources */,
+				B1287A4C26EA76F5004B52B7 /* QURAN.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B12879E426EA56FE004B52B7 /* Data+Compression.swift in Sources */,
 				B1BAD9AE26C13F4C00D202EA /* WaveformImageDrawer.swift in Sources */,
 				B1BAD9AD26C13F4C00D202EA /* WaveformAnalyzer.swift in Sources */,
 				B1BAD9AF26C13F4C00D202EA /* WaveformImageTypes.swift in Sources */,
@@ -329,22 +436,39 @@
 				B103936326B40EA700983E48 /* UIColorExtension.swift in Sources */,
 				B1BF746A26B01B5B0072D31E /* Choices.swift in Sources */,
 				B103936426B40EA700983E48 /* StringExtension.swift in Sources */,
+				B12879E826EA56FE004B52B7 /* FileManager+ZIP.swift in Sources */,
+				B12879E726EA56FE004B52B7 /* URL+ZIP.swift in Sources */,
 				B166ADBB26B2B4C3007B9E11 /* GradientView.swift in Sources */,
 				B166ADD426B2CA19007B9E11 /* AddChoiceVC.swift in Sources */,
+				B12879EA26EA56FE004B52B7 /* Archive+MemoryFile.swift in Sources */,
+				B1287A4226EA7065004B52B7 /* PDFPageCollectionViewCell.swift in Sources */,
 				B1BAD9AC26C13F4C00D202EA /* WaveformImageView.swift in Sources */,
 				B166AD9226B18E04007B9E11 /* ChoiceClVwCell.swift in Sources */,
 				B1BAD9B026C13F4C00D202EA /* WaveformLiveView.swift in Sources */,
 				B166ADBE26B2B4C3007B9E11 /* GradientButton.swift in Sources */,
 				B103936526B40EA700983E48 /* UIColorInputError.swift in Sources */,
+				B12879E626EA56FE004B52B7 /* Data+Serialization.swift in Sources */,
 				B166ADD726B2D47B007B9E11 /* CameraHandler.swift in Sources */,
+				B1287A4526EA7065004B52B7 /* PDFPageView.swift in Sources */,
+				B12879E926EA56FE004B52B7 /* Archive+Progress.swift in Sources */,
 				B166ADBD26B2B4C3007B9E11 /* NavigationBarGradientBG.swift in Sources */,
 				B1BAD9AB26C13F4C00D202EA /* TempiFFT.swift in Sources */,
+				B1287A4726EA7065004B52B7 /* PDFThumbnailCollectionViewController.swift in Sources */,
+				B1287A4826EA7065004B52B7 /* PDFThumbnailCell.swift in Sources */,
+				B12879EC26EA56FE004B52B7 /* Entry.swift in Sources */,
+				B12879EF26EA5F49004B52B7 /* TempViewController.swift in Sources */,
+				B12879EB26EA56FE004B52B7 /* Archive+Writing.swift in Sources */,
 				FDA741CC26B5C85C00A80CFE /* ViewController.swift in Sources */,
+				B12879E326EA56FE004B52B7 /* Archive.swift in Sources */,
+				B1287A4626EA7065004B52B7 /* PDFDocument.swift in Sources */,
 				B166ADC026B2B4C3007B9E11 /* CustomView.swift in Sources */,
 				B166ADBC26B2B4C3007B9E11 /* CustomButton.swift in Sources */,
 				B1BF745126B011C10072D31E /* AppDelegate.swift in Sources */,
+				B1287A4326EA7065004B52B7 /* TiledView.swift in Sources */,
 				B1BAD9B826C1424A00D202EA /* SCAudioManager.m in Sources */,
+				B1287A4426EA7065004B52B7 /* PDFViewController.swift in Sources */,
 				B1BAD97E26BAA6DF00D202EA /* selectedChoiceWords.swift in Sources */,
+				B12879E526EA56FE004B52B7 /* Archive+Reading.swift in Sources */,
 				B1BF746926B01B5B0072D31E /* DBHelper.swift in Sources */,
 				B166ADBF26B2B4C3007B9E11 /* CustomImageView.swift in Sources */,
 			);
@@ -353,6 +477,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B12879F926EA6038004B52B7 /* Temp.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B12879FA26EA6038004B52B7 /* Base */,
+			);
+			name = Temp.storyboard;
+			sourceTree = "<group>";
+		};
 		B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
