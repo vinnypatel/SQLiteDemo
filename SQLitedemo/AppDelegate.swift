@@ -13,6 +13,8 @@ let APPDELEGATE = AppDelegate.sharedAppDelegate()
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
+    var myOrientation : UIInterfaceOrientationMask = UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+    
     class func sharedAppDelegate() -> AppDelegate {
         
         return UIApplication.shared.delegate as! AppDelegate
@@ -25,6 +27,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        
+        return myOrientation
+        
+        /*
+         if self.window?.rootViewController?.presentedViewController is SecondViewController {
+
+                 let secondController = self.window!.rootViewController!.presentedViewController as! SecondViewController
+
+             if secondController.isBeingPresented {
+
+                     return UIInterfaceOrientationMask.landscapeLeft;
+
+             } else {
+                return UIInterfaceOrientationMask.all;
+             }
+     } else {
+         
+         return UIInterfaceOrientationMask.all;
+     }
+         */
     }
     
     func saveImageToDocumentDirectory(image: UIImage, fileName: String) -> String {

@@ -46,7 +46,7 @@ class SelectedChoiceWithTextOnlyCell: UICollectionViewCell {
             guard let model = selectedChoice else {
                 return
             }
-            lblChoice.font = UIFont.systemFont(ofSize: 18,weight: .bold)
+            //lblChoice.font = UIFont.systemFont(ofSize: 18,weight: .bold)
             lblChoice.text = model.strCaption
 
         }

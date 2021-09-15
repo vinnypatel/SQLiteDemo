@@ -5,7 +5,7 @@
 //  Created by Vinay Patel on 31/07/21.
 //
 
-///********fa ldsadflfj ;laj --- ghp_VU5xPdd4NNjkYzk8PM7VPPbap63zyb9CB1njdwK-------
+///********fa ldsadflfj ;laj --- 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-------
 
 
 /*
@@ -70,6 +70,8 @@ class ViewController: UIViewController {
     var db:DBHelper = DBHelper()
     var selectedParentID = 0
     var arrSelectedParentID : [Int] = []
+    
+    let synthesizer = AVSpeechSynthesizer()
     @IBOutlet weak var clVwChoices : UICollectionView!
     @IBOutlet weak var btnKeyboard: UIButton!
     @IBOutlet weak var btnDelete : UIButton!
@@ -79,8 +81,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var btnCore: UIButton!
     @IBOutlet weak var btnEdit: UIButton!
-    @IBOutlet weak var btnMistake: UIButton!
-    @IBOutlet weak var btnAler:UIButton!
+    var isSpeaking: Bool = false
+//    @IBOutlet weak var btnMistake: UIButton!
+//    @IBOutlet weak var btnAler:UIButton!
     
     @IBOutlet weak var btnA: UIButton!
     @IBOutlet weak var btnB: UIButton!
@@ -170,7 +173,7 @@ class ViewController: UIViewController {
     }
     
     var strSelectedTable : String = "TABLE_CHOICE"
-    
+    var arrTempSelectedChoices : [String] = []
     var arrSelectedChoices: [selectedChoiceWords] = [] {
         
         didSet {
@@ -189,16 +192,16 @@ class ViewController: UIViewController {
             btnDelete.isEnabled = isEnabled
             btnBack.isEnabled = isEnabled
             btnHome.isEnabled = isEnabled
-            btnCore.isEnabled = isEnabled
-            btnMistake.isEnabled = isEnabled
-            btnAler.isEnabled = isEnabled
+            //btnCore.isEnabled = isEnabled
+//            btnMistake.isEnabled = isEnabled
+//            btnAler.isEnabled = isEnabled
             
             btnDelete.alpha = isEnabled ? 1.0: 0.5
             btnBack.alpha = isEnabled ? 1.0: 0.5
             btnHome.alpha = isEnabled ? 1.0: 0.5
-            btnCore.alpha = isEnabled ? 1.0: 0.5
-            btnMistake.alpha = isEnabled ? 1.0: 0.5
-            btnAler.alpha = isEnabled ? 1.0: 0.5
+            //btnCore.alpha = isEnabled ? 1.0: 0.5
+//            btnMistake.alpha = isEnabled ? 1.0: 0.5
+//            btnAler.alpha = isEnabled ? 1.0: 0.5
 
 
         }
@@ -213,9 +216,9 @@ class ViewController: UIViewController {
             }
             
             if arrSelectedChoices.count > 0 {
-                arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: strkeyboardType, strImageName: "")
+                arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: strkeyboardType.trimmingCharacters(in: .whitespacesAndNewlines), strImageName: "")
             } else {
-                arrSelectedChoices = [selectedChoiceWords(strCaption: strkeyboardType, strImageName: "")]
+                arrSelectedChoices = [selectedChoiceWords(strCaption: strkeyboardType.trimmingCharacters(in: .whitespacesAndNewlines), strImageName: "")]
             }
             
 //            if strkeyboardType.isEmpty {
@@ -242,11 +245,11 @@ class ViewController: UIViewController {
                 strPath = arrTravel[0]
                 btnHome.isEnabled = false
                 btnBack.isEnabled = false
-                btnCore.isEnabled = true
+                //btnCore.isEnabled = true
             } else {
                 btnHome.isEnabled = true
                 btnBack.isEnabled = true
-                btnCore.isEnabled = false
+                //btnCore.isEnabled = false
                 strPath = ""
                 for i in 0..<arrTravel.count {
                     
@@ -267,10 +270,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        appDelegate.myOrientation = .landscape
+        
+        
         arrTravel = ["Home"]
         arrSelectedParentID = [0]
         readChoiceDB(parentID: 0, withTableName: strSelectedTable)
-        vwTag.textFont = UIFont.systemFont(ofSize: 24)
+        vwTag.textFont = UIFont.systemFont(ofSize: UIDevice.current.userInterfaceIdiom == .pad ? 28 : 24)
         vwTag.alignment = .center
         vwTag.delegate = self
         btnDelete.addTarget(self, action: #selector(multipleTap(_:event:)), for: .touchDownRepeat)
@@ -291,16 +300,22 @@ class ViewController: UIViewController {
     
     @objc func tapOnChoicesWords() {
         
-        if arrSelectedChoices.count == 0 {
+        if arrSelectedChoices.count == 0 || isSpeaking {
+            isSpeaking = false
+            if synthesizer.isSpeaking {
+                synthesizer.stopSpeaking(at: .immediate)
+            }
             return
         }
         
+        isSpeaking.toggle()
         let arrCaption = arrSelectedChoices.map({$0.strCaption})
-        let utterance = AVSpeechUtterance(string: arrCaption.joined())
+        arrTempSelectedChoices = arrCaption
+        let utterance = AVSpeechUtterance(string: arrCaption.joined(separator: " "))
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.3
-
-        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
+       // let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
     }
     
@@ -333,11 +348,20 @@ class ViewController: UIViewController {
         if (touch.tapCount == 1) {
             
             arrSelectedChoices.removeLast()
+            
             // do action.
         } else {
             
             arrSelectedChoices.removeAll()
+            
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       
+//        self.dismiss(animated: true, completion: nil)
+       // self.navigationController?.popViewController(animated: true)
     }
     
     @objc fileprivate func doubleTap() {
@@ -459,6 +483,7 @@ class ViewController: UIViewController {
          
             if arrSelectedChoices.last?.strCaption == "" {
                 arrSelectedChoices.removeLast()
+                
                 return
             }
             let tempArr = arrSelectedChoices.last
@@ -470,6 +495,7 @@ class ViewController: UIViewController {
                 if strArr.count == 0 {
                     strkeyboardType = ""
                     arrSelectedChoices.removeLast()
+                    
                     
                 } else {
                     strkeyboardType = strArr.joined(separator: "")
@@ -647,14 +673,15 @@ class ViewController: UIViewController {
             if arrSelectedChoices.last?.strCaption != "" {
                 //strkeyboardType = ""
                 arrSelectedChoices.append(selectedChoiceWords(strCaption: "", strImageName: ""))
+               
             }
             break
             
         default:
             break
         }
-        
-        strkeyboardType = tempString
+    
+        strkeyboardType = tempString.trimmingCharacters(in: .whitespacesAndNewlines)
         if !isDoubleTap {
             isSelected = false
         }
@@ -663,17 +690,46 @@ class ViewController: UIViewController {
 
 extension ViewController {
     
-    @IBAction func btnCorePressed(_ sender: UIButton) {
+    
 
-            arrTravel = ["Home"]
-            arrSelectedParentID = [0]
-            arrTravel.append("Core")
-            arrSelectedParentID.append(0)
-            selectedParentID = 0
-            strSelectedTable = "TABLE_CORE_CHOICE"
-            readChoiceDB(parentID: 0, withTableName: strSelectedTable)
+    
+    @IBAction func btnSpeakPressed(_ sender: UIButton) {
+
+        
+        
+        let string = "This is a test. This is only a test. If this was an actual emergency, then this wouldn’t have been a test."
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+
+            
+            synthesizer.delegate = self
+            synthesizer.speak(utterance)
+            
+//            arrTravel = ["Home"]
+//            arrSelectedParentID = [0]
+//            arrTravel.append("Core")
+//            arrSelectedParentID.append(0)
+//            selectedParentID = 0
+//            strSelectedTable = "TABLE_CORE_CHOICE"
+//            readChoiceDB(parentID: 0, withTableName: strSelectedTable)
 
     }
+    
+    
+    @IBAction func btnSendMessagePressed(_ sender: Any) {
+        
+        
+    }
+    
+    @IBAction func btnDashboardPressed(_ sender: Any) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.myOrientation = UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func btnDeletePressed(_ sender: Any) {
         
         
@@ -687,6 +743,7 @@ extension ViewController {
                 vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .fullScreen
                 vc.selectedParentID = arrSelectedChoices[0].parentId
+                vc.isCategory = arrSelectedChoices[0].isCategory
                 vc.strSelectedTable = strSelectedTable
                 vc.callBack = { [weak self] in
                     self!.readChoiceDB(parentID: self!.selectedParentID, withTableName: self!.strSelectedTable)
@@ -699,6 +756,7 @@ extension ViewController {
         
         if arrSelectedChoices.count > 0 {
             arrSelectedChoices.removeLast()
+            
             if !strkeyboardType.isEmpty {
                 isMainDeletePressed = true
                 strkeyboardType = ""
@@ -903,8 +961,10 @@ extension ViewController {
                 self!.btnKeyboard.tag = 1
                 if self!.arrSelectedChoices.count > 0 && !self!.arrSelectedChoices.last!.strCaption.isEmpty {
                     self!.arrSelectedChoices.append(selectedChoiceWords(strCaption: "", strImageName: ""))
+                    
                 } else {
                     self!.arrSelectedChoices = [selectedChoiceWords(strCaption: "", strImageName: "")]
+                    
                 }
             }
 
@@ -914,6 +974,7 @@ extension ViewController {
             if arrSelectedChoices.count > 0 && arrSelectedChoices.last?.strCaption == ""{
                 
                 arrSelectedChoices.removeLast()
+                
                 
             }
             UIView.transition(with: vwKeyboard, duration: 0.5, options: .transitionCrossDissolve) { [weak self] in
@@ -966,21 +1027,46 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                 let cell = clVwSelectedChoices.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! SelectedChoiceWithTextOnlyCell
                 
                 cell.selectedChoice = model
-                if lblKeyboard.text != "Add" {
-                    if indexPath.row == arrSelectedChoices.count - 1 {
-                        cell.lblChoice.textColor = .red
-                    } else {
-                        cell.lblChoice.textColor = .black
-                    }
+                
+                if isSpeaking {
+                    cell.lblChoice.textColor = model.isSpeaking ? .red : .black
+//                    if indexPath.row == arrSelectedChoices.count - 1 {
+//                        isSpeaking = false
+//                    }
+                    
                 } else {
-                    cell.lblChoice.textColor = .black
+                    if lblKeyboard.text != "Add" {
+                        if indexPath.row == arrSelectedChoices.count - 1 {
+                            
+                           
+                                cell.lblChoice.textColor = .red
+                           
+                        } else {
+                           
+                                cell.lblChoice.textColor = .black
+                                
+                          
+                        }
+                    } else {
+                        
+                        cell.lblChoice.textColor = .black
+                        print("cell.lblChoice \(cell.lblChoice.text!)")
+                    }
                 }
+               
                 return cell
             }
             
             let cell = clVwSelectedChoices.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SelectedChoiceCell
             
             cell.selectedChoice = model
+            
+            if model.isSpeaking {
+                cell.lblChoice.textColor = .red
+            } else {
+                cell.lblChoice.textColor = .black
+                
+            }
             
             return cell
         }
@@ -997,8 +1083,8 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
             if model.strImageName.isEmpty{
                 let height = collectionView.contentSize.height
                 let text = model.strCaption
-                let width = text.width(withConstrainedHeight: height, font: UIFont.boldSystemFont(ofSize: 18)) + 8
-                    return CGSize(width: width, height: height)
+                let width = text.width(withConstrainedHeight: height, font: UIFont.boldSystemFont(ofSize:UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18)) + 8
+                return CGSize(width: width , height: height)
 //                let size = (model.strCaption as NSString).size(withAttributes: nil)
 //                return CGSize(width: size.width, height: collectionView.contentSize.height)
             }
@@ -1051,6 +1137,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
 //                btnDelete.isEnabled = true
                 if choices.filter({$0.isSelected}).count == 1 {
                     btnDelete.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
+                    lblDelete.text = "Edit"
                     btnDelete.tag = 1
                     btnDelete.isEnabled = true
                     btnDelete.alpha = 1.0
@@ -1063,7 +1150,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                 btnBack.alpha = 1.0
                 btnBack.imageView?.tintColor = UIColor.blue
                 btnBack.setImage(#imageLiteral(resourceName: "ic_delete"), for: .normal)
-//                lblDelete.text = "Change"
+                
                 lblBack.text = "Delete"
                 
             } else {
@@ -1076,7 +1163,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                 btnDelete.setImage(#imageLiteral(resourceName: "delete"), for: .normal)
                 btnBack.tag = 0
                 btnBack.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
-//                lblDelete.text = "Delete"
+                lblDelete.text = "Delete"
                 lblBack.text = "Back"
             }
             
@@ -1123,6 +1210,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
             animation(tempView: vwTemp) { [weak self] in
                 
                 self!.arrSelectedChoices.append(selectedChoiceWords(strCaption: model.caption, strImageName: model.imgPath!))
+                
             }
             
            // arrSelectedChoices.append(selectedChoiceWords(strCaption: model.caption, strImageName: model.imgPath!))
@@ -1138,6 +1226,7 @@ extension ViewController : TagListViewDelegate {
         arrTemp!.strCaption = title
         
         arrSelectedChoices[arrSelectedChoices.count - 1] = arrTemp!
+        
     }
 }
 
@@ -1162,5 +1251,49 @@ extension String {
                                         attributes: [.font: font], context: nil)
 
         return ceil(boundingBox.width)
+    }
+}
+
+
+extension ViewController: AVSpeechSynthesizerDelegate {
+//
+//    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+//        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString)
+//        mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.red, range: characterRange)
+//        //label.attributedText = mutableAttributedString
+//    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        
+        arrSelectedChoices[arrSelectedChoices.count - 1] = selectedChoiceWords(strCaption: arrSelectedChoices.last!.strCaption, strImageName: arrSelectedChoices.last!.strImageName, isSpeaking: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.isSpeaking = false
+        }
+        //label.attributedText = NSAttributedString(string: utterance.speechString)
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+
+        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString)
+        let str = mutableAttributedString.attributedSubstring(from: characterRange)
+        
+        if let index = arrTempSelectedChoices.firstIndex(where: {$0 == str.string}) {
+            
+            arrSelectedChoices[index].isSpeaking = true
+            arrTempSelectedChoices[index] = ""
+            
+            print("index \(index)")
+            if index > 0 {
+                print("index - 1 ----- \(index-1)")
+                arrSelectedChoices[index - 1].isSpeaking = false
+            }
+            //clVwSelectedChoices.reloadItems(at: [IndexPath(row: index, section: 0)])
+           // sleep(UInt32(0.3))
+           // arrSelectedChoices[index].isSpeaking = false
+        }
+        
+        print(str.string)
+        
+           // mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.red, range: characterRange)
+
     }
 }

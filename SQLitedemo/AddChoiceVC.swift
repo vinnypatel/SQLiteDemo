@@ -93,7 +93,10 @@ class AddChoiceVC: UIViewController {
                 audioURL = URL(string: selectedChoice!.recordingPath!)
             }
             if isCategory {
+                vwBgImg.isHidden = false
+                vwImageBg.backgroundColor = .clear
                 vwBgImg.tintColor = UIColor(selectedChoice!.color)
+                vwBgImg.image = #imageLiteral(resourceName: "folder")
             } else {
                 vwImageBg.backgroundColor = UIColor(selectedChoice!.color)
             }

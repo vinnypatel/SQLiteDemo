@@ -10,9 +10,15 @@ import PDFKit
 
 class TempViewController: UIViewController, UIDocumentInteractionControllerDelegate{
 
+    @IBOutlet weak var tblVw: UITableView!
+    
+    var arr : [Tempodel] = []
+    var arrIndexSet: IndexSet? = []
     override func viewDidLoad() {
         super.viewDidLoad()
         saveHtmlDoc()
+        
+        arr = [Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34), Tempodel(leading: 108, top: 8),Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34),Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34), Tempodel(leading: 8, top: 34)]
         // Do any additional setup after loading the view.
     }
     
@@ -97,4 +103,119 @@ class TempViewController: UIViewController, UIDocumentInteractionControllerDeleg
         navigationController?.pushViewController(controller, animated: true)
     }
 
+}
+
+
+extension TempViewController : UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        let cell = self.tblVw.dequeueReusableCell(withIdentifier: "cell") as! tempCell
+//
+//       // cell.vwExpand.isHidden = !self.arrIndexSet!.contains(indexPath.row)
+//
+//        return cell
+        //
+        //                              // return cell
+        //var cell = tempCell()
+//        UIView.transition(with: tblVw, duration: 0.5, options: .transitionCrossDissolve) {
+//
+            if self.arrIndexSet!.contains(indexPath.row) {
+
+               let cell = self.tblVw.dequeueReusableCell(withIdentifier: "cellExpanded") as! tempCell
+
+                               return cell
+            }
+            else {
+
+            let cell = self.tblVw.dequeueReusableCell(withIdentifier: "cell") as! tempCell
+
+                               return cell
+            }
+//        } completion: { _ in
+//
+//        }
+//
+//        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+//        cell.layer.transform = CATransform3DMakeScale(0.1,0.1,1)
+//        UIView.animate(withDuration: 0.3, animations: {
+//            cell.layer.transform = CATransform3DMakeScale(1.05,1.05,1)
+//            },completion: { finished in
+//                UIView.animate(withDuration: 0.1, animations: {
+//                    cell.layer.transform = CATransform3DMakeScale(1,1,1)
+//                })
+//        })
+//        var rotation = CATransform3DMakeRotation( CGFloat((90.0 * Double.pi)/180), 0.0, 0.7, 0.4);
+//            rotation.m34 = 1.0 / -600
+//
+//            //2. Define the initial state (Before the animation)
+//            cell.layer.shadowOffset = CGSize(width: 10.0, height: 10.0)
+//            cell.alpha = 0;
+//            cell.layer.transform = rotation;
+//            cell.layer.anchorPoint = CGPoint(x: 0.0, y: 0.5)
+//
+//            //3. Define the final state (After the animation) and commit the animation
+//            cell.layer.transform = rotation
+//            UIView.animate(withDuration: 0.8, animations:{cell.layer.transform = CATransform3DIdentity})
+//            cell.alpha = 1
+//            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            UIView.commitAnimations()
+        
+        
+        
+        
+        cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+           UIView.animate(withDuration: 0.4) {
+               cell.transform = CGAffineTransform.identity
+           }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if arrIndexSet!.contains(indexPath.row) {
+            
+            arrIndexSet?.remove(indexPath.row)
+            
+        } else {
+            arrIndexSet?.insert(indexPath.row)
+        }
+        
+        tblVw.beginUpdates()
+        tblVw.reloadRows(at: [indexPath], with: .fade)
+        tblVw.endUpdates()
+        
+//        tblVw.reloadRows(at: [indexPath], with: .none)
+    }
+    
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        arrIndexSet?.remove(indexPath.row)
+//        tblVw.reloadRows(at: [indexPath], with: .automatic)
+//    }
+    
+    
+}
+
+
+class tempCell: UITableViewCell {
+    
+    @IBOutlet weak var lbl1: UILabel!
+    @IBOutlet weak var lbl2: UILabel!
+    @IBOutlet weak var lbl3: UILabel!
+    @IBOutlet weak var lbl4 : UILabel!
+    @IBOutlet weak var imgVw: UIImageView!
+    @IBOutlet weak var vwExpand: UIView!
+    @IBOutlet weak var leadingConst : NSLayoutConstraint!
+    
 }

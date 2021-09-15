@@ -33,6 +33,11 @@
 		B1287A4826EA7065004B52B7 /* PDFThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A3F26EA7065004B52B7 /* PDFThumbnailCell.swift */; };
 		B1287A4926EA7065004B52B7 /* PDFReader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1287A4126EA7065004B52B7 /* PDFReader.storyboard */; };
 		B1287A4C26EA76F5004B52B7 /* QURAN.zip in Resources */ = {isa = PBXBuildFile; fileRef = B1287A4B26EA76F5004B52B7 /* QURAN.zip */; };
+		B1287A5626F0AD88004B52B7 /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A5526F0AD88004B52B7 /* InitialVC.swift */; };
+		B1287A5926F0B663004B52B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1287A5826F0B663004B52B7 /* AVFoundation.framework */; };
+		B1287A6C26F1F580004B52B7 /* iphone.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B1287A6B26F1F580004B52B7 /* iphone.jpeg */; };
+		B1287A7F26F20748004B52B7 /* TempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1287A7E26F20748004B52B7 /* TempModel.swift */; };
+		B1287A8C26F22BA2004B52B7 /* nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1287A8B26F22BA2004B52B7 /* nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg */; };
 		B166AD9226B18E04007B9E11 /* ChoiceClVwCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166AD9126B18E04007B9E11 /* ChoiceClVwCell.swift */; };
 		B166AD9826B1A1DC007B9E11 /* IMG_0319.png in Resources */ = {isa = PBXBuildFile; fileRef = B166AD9726B1A1DC007B9E11 /* IMG_0319.png */; };
 		B166ADBB26B2B4C3007B9E11 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADB426B2B4C2007B9E11 /* GradientView.swift */; };
@@ -44,7 +49,6 @@
 		B166ADC126B2B4C3007B9E11 /* GradientView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADBA26B2B4C2007B9E11 /* GradientView1.swift */; };
 		B166ADD426B2CA19007B9E11 /* AddChoiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADD326B2CA19007B9E11 /* AddChoiceVC.swift */; };
 		B166ADD726B2D47B007B9E11 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166ADD626B2D47B007B9E11 /* CameraHandler.swift */; };
-		B184C97E26CA647B00DA632D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */; };
 		B1BAD97E26BAA6DF00D202EA /* selectedChoiceWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD97D26BAA6DF00D202EA /* selectedChoiceWords.swift */; };
 		B1BAD98126BAA7F800D202EA /* SelectedChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD98026BAA7F800D202EA /* SelectedChoiceCell.swift */; };
 		B1BAD9AB26C13F4C00D202EA /* TempiFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD9A526C13F4B00D202EA /* TempiFFT.swift */; };
@@ -55,7 +59,6 @@
 		B1BAD9B026C13F4C00D202EA /* WaveformLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD9AA26C13F4C00D202EA /* WaveformLiveView.swift */; };
 		B1BAD9B826C1424A00D202EA /* SCAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BAD9B726C1424A00D202EA /* SCAudioManager.m */; };
 		B1BF745126B011C10072D31E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF745026B011C10072D31E /* AppDelegate.swift */; };
-		B1BF745826B011C20072D31E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1BF745626B011C20072D31E /* Main.storyboard */; };
 		B1BF745A26B011C90072D31E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1BF745926B011C90072D31E /* Assets.xcassets */; };
 		B1BF745D26B011C90072D31E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1BF745B26B011C90072D31E /* LaunchScreen.storyboard */; };
 		B1BF746926B01B5B0072D31E /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF746626B01B5B0072D31E /* DBHelper.swift */; };
@@ -94,6 +97,11 @@
 		B1287A3F26EA7065004B52B7 /* PDFThumbnailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFThumbnailCell.swift; sourceTree = "<group>"; };
 		B1287A4126EA7065004B52B7 /* PDFReader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PDFReader.storyboard; sourceTree = "<group>"; };
 		B1287A4B26EA76F5004B52B7 /* QURAN.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = QURAN.zip; sourceTree = "<group>"; };
+		B1287A5526F0AD88004B52B7 /* InitialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialVC.swift; sourceTree = "<group>"; };
+		B1287A5826F0B663004B52B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B1287A6B26F1F580004B52B7 /* iphone.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iphone.jpeg; sourceTree = "<group>"; };
+		B1287A7E26F20748004B52B7 /* TempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModel.swift; sourceTree = "<group>"; };
+		B1287A8B26F22BA2004B52B7 /* nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg"; sourceTree = "<group>"; };
 		B166AD9126B18E04007B9E11 /* ChoiceClVwCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceClVwCell.swift; sourceTree = "<group>"; };
 		B166AD9726B1A1DC007B9E11 /* IMG_0319.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_0319.png; sourceTree = "<group>"; };
 		B166ADB426B2B4C2007B9E11 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -105,7 +113,6 @@
 		B166ADBA26B2B4C2007B9E11 /* GradientView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView1.swift; sourceTree = "<group>"; };
 		B166ADD326B2CA19007B9E11 /* AddChoiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoiceVC.swift; sourceTree = "<group>"; };
 		B166ADD626B2D47B007B9E11 /* CameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
-		B184C97D26CA647B00DA632D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		B1BAD97D26BAA6DF00D202EA /* selectedChoiceWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectedChoiceWords.swift; sourceTree = "<group>"; };
 		B1BAD98026BAA7F800D202EA /* SelectedChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChoiceCell.swift; sourceTree = "<group>"; };
 		B1BAD9A126C13F4400D202EA /* DSWaveformImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSWaveformImage.h; sourceTree = "<group>"; };
@@ -120,7 +127,6 @@
 		B1BAD9B726C1424A00D202EA /* SCAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioManager.m; sourceTree = "<group>"; };
 		B1BF744D26B011C10072D31E /* SQLitedemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLitedemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1BF745026B011C10072D31E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B1BF745726B011C20072D31E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1BF745926B011C90072D31E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1BF745C26B011C90072D31E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1BF745E26B011C90072D31E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1287A5926F0B663004B52B7 /* AVFoundation.framework in Frameworks */,
 				BFC5596F0DF679A4B99B5FDC /* Pods_SQLitedemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +160,7 @@
 		606B631A2DB6E51B074B41B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1287A5826F0B663004B52B7 /* AVFoundation.framework */,
 				028883F0DCEFCB44BA6E4BC5 /* Pods_SQLitedemo.framework */,
 			);
 			name = Frameworks;
@@ -188,8 +196,10 @@
 		B1287A3726EA7065004B52B7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B1287A6B26F1F580004B52B7 /* iphone.jpeg */,
 				B1287A3826EA7065004B52B7 /* Classes */,
 				B1287A4026EA7065004B52B7 /* Assets */,
+				B1287A7E26F20748004B52B7 /* TempModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -278,9 +288,9 @@
 			isa = PBXGroup;
 			children = (
 				B12879F926EA6038004B52B7 /* Temp.storyboard */,
+				B1287A8B26F22BA2004B52B7 /* nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg */,
 				B1287A3726EA7065004B52B7 /* Sources */,
 				B12879D826EA56EC004B52B7 /* ZipFoundation */,
-				B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */,
 				B1BAD99F26C13F1A00D202EA /* DSWaveformImage */,
 				B103935F26B40E9400983E48 /* HEXColor */,
 				B166ADB326B2B4B2007B9E11 /* CustomClasses */,
@@ -291,7 +301,6 @@
 				B1BF746726B01B5B0072D31E /* Choices.swift */,
 				B1287A4B26EA76F5004B52B7 /* QURAN.zip */,
 				B12879F126EA5FA1004B52B7 /* ListAbstractions.zip */,
-				B1BF745626B011C20072D31E /* Main.storyboard */,
 				B166AD9726B1A1DC007B9E11 /* IMG_0319.png */,
 				B1BF745926B011C90072D31E /* Assets.xcassets */,
 				B1BF745B26B011C90072D31E /* LaunchScreen.storyboard */,
@@ -301,6 +310,7 @@
 				FDA741CB26B5C85C00A80CFE /* ViewController.swift */,
 				B1BAD97D26BAA6DF00D202EA /* selectedChoiceWords.swift */,
 				B1BAD98026BAA7F800D202EA /* SelectedChoiceCell.swift */,
+				B1287A5526F0AD88004B52B7 /* InitialVC.swift */,
 			);
 			path = SQLitedemo;
 			sourceTree = "<group>";
@@ -368,12 +378,12 @@
 				B1287A4926EA7065004B52B7 /* PDFReader.storyboard in Resources */,
 				B166AD9826B1A1DC007B9E11 /* IMG_0319.png in Resources */,
 				B1BF745D26B011C90072D31E /* LaunchScreen.storyboard in Resources */,
-				B184C97E26CA647B00DA632D /* Main_iPhone.storyboard in Resources */,
+				B1287A6C26F1F580004B52B7 /* iphone.jpeg in Resources */,
+				B1287A8C26F22BA2004B52B7 /* nasir-al-mulk-mosque-shiraz-iran-royalty-free-image-1583272854.jpg in Resources */,
 				B1287A0626EA65FB004B52B7 /* JHDownloadManager-master.zip in Resources */,
 				B1BF745A26B011C90072D31E /* Assets.xcassets in Resources */,
 				B12879F226EA5FA1004B52B7 /* ListAbstractions.zip in Resources */,
 				B12879FB26EA6038004B52B7 /* Temp.storyboard in Resources */,
-				B1BF745826B011C20072D31E /* Main.storyboard in Resources */,
 				B1287A4C26EA76F5004B52B7 /* QURAN.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1287A5626F0AD88004B52B7 /* InitialVC.swift in Sources */,
 				B12879E426EA56FE004B52B7 /* Data+Compression.swift in Sources */,
 				B1BAD9AE26C13F4C00D202EA /* WaveformImageDrawer.swift in Sources */,
 				B1BAD9AD26C13F4C00D202EA /* WaveformAnalyzer.swift in Sources */,
@@ -461,6 +472,7 @@
 				FDA741CC26B5C85C00A80CFE /* ViewController.swift in Sources */,
 				B12879E326EA56FE004B52B7 /* Archive.swift in Sources */,
 				B1287A4626EA7065004B52B7 /* PDFDocument.swift in Sources */,
+				B1287A7F26F20748004B52B7 /* TempModel.swift in Sources */,
 				B166ADC026B2B4C3007B9E11 /* CustomView.swift in Sources */,
 				B166ADBC26B2B4C3007B9E11 /* CustomButton.swift in Sources */,
 				B1BF745126B011C10072D31E /* AppDelegate.swift in Sources */,
@@ -483,22 +495,6 @@
 				B12879FA26EA6038004B52B7 /* Base */,
 			);
 			name = Temp.storyboard;
-			sourceTree = "<group>";
-		};
-		B184C97C26CA647A00DA632D /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B184C97D26CA647B00DA632D /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		B1BF745626B011C20072D31E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B1BF745726B011C20072D31E /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		B1BF745B26B011C90072D31E /* LaunchScreen.storyboard */ = {
@@ -643,7 +639,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.luxshtech.SQLitedemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luxshtech.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SQLitedemo/DSWaveformImage/SQLitedemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -667,7 +663,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.luxshtech.SQLitedemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luxshtech.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SQLitedemo/DSWaveformImage/SQLitedemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
